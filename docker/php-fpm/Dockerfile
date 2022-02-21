@@ -19,6 +19,8 @@ RUN apk --no-cache add shadow && \
     groupmod -o -g ${PGID} www-data && \
     usermod -o -u ${PUID} -g www-data www-data
 
+USER www-data
+
 # Source code
 COPY ./ /var/www
 WORKDIR /var/www
