@@ -1,7 +1,7 @@
 controllers:
-    resource: ../src/Controller/
+    resource: ../src/Shared/Infrastructure/Controller/
     type: annotation
 
 kernel:
-    resource: ../src/Kernel.php
+    resource: ../src/Shared/Infrastructure/Kernel.php
     type: annotation

@@ -15,3 +15,7 @@
 
 - [X] [Install PHPUnit](https://symfony.com/doc/current/testing.html#the-phpunit-testing-framework)
 - [X] [Integrate PHPUnit with a PhpStorm project](https://symfony.com/doc/current/testing.html#the-phpunit-testing-framework)
+
+### Architecture
+- [X] [Clean Architecture]()
+- [X] [Monolith First]()
