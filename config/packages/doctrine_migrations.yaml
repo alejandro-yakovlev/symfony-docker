@@ -1,0 +1,6 @@
+doctrine_migrations:
+    migrations_paths:
+        # namespace is arbitrary but should be different from App\Migrations
+        # as Migrations classes should NOT be autoloaded
+        'App\Shared\Infrastructure\Database\Migrations': '%kernel.project_dir%/src/Shared/Infrastructure/Database/Migrations'
+    enable_profiler: '%kernel.debug%'

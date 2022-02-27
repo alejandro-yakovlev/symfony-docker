@@ -16,6 +16,14 @@
 - [X] [Install PHPUnit](https://symfony.com/doc/current/testing.html#the-phpunit-testing-framework)
 - [X] [Integrate PHPUnit with a PhpStorm project](https://symfony.com/doc/current/testing.html#the-phpunit-testing-framework)
 
-### Architecture
-- [X] [Clean Architecture]()
-- [X] [Monolith First]()
+### Clean Architecture
+- [X] [Onion Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [X] [Monolith First](https://martinfowler.com/bliki/MonolithFirst.html)
+
+### Databases and the Doctrine ORM
+- [X] [Installing Doctrine](https://symfony.com/doc/current/doctrine.html)
+- [X] [Setting up a Database](https://symfony.com/doc/current/the-fast-track/en/7-database.html)
+- [X] [Mapping](https://www.doctrine-project.org/projects/doctrine-orm/en/current/reference/xml-mapping.html)
+- [X] [Migrations](https://symfony.com/doc/current/doctrine.html#migrations-creating-the-database-tables-schema)
+- [X] [Repository](https://symfony.com/doc/current/doctrine.html#querying-for-objects-the-repository)
+- [X] [Database Testing](https://symfony.com/doc/current/testing/database.html)

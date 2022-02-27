@@ -1,0 +1,14 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Users\Domain\Entity\User" table="users_user">
+        <id name="ulid" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="email" type="string"/>
+        <field name="password" type="string"/>
+    </entity>
+
+</doctrine-mapping>
