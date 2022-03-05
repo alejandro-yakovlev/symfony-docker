@@ -1,4 +1,13 @@
 {
+    "dama/doctrine-test-bundle": {
+        "version": "6.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "4.0",
+            "ref": "56eaa387b5e48ebcc7c95a893b47dfa1ad51449c"
+        }
+    },
     "doctrine/annotations": {
         "version": "1.13",
         "recipe": {
@@ -16,6 +25,9 @@
     },
     "doctrine/common": {
         "version": "3.2.2"
+    },
+    "doctrine/data-fixtures": {
+        "version": "1.5.2"
     },
     "doctrine/dbal": {
         "version": "3.3.2"
@@ -35,6 +47,18 @@
             "config/packages/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.4",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -82,6 +106,9 @@
     },
     "laminas/laminas-code": {
         "version": "4.5.1"
+    },
+    "liip/test-fixtures-bundle": {
+        "version": "2.2.1"
     },
     "myclabs/deep-copy": {
         "version": "1.10.2"

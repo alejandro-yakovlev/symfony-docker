@@ -22,15 +22,16 @@ RUN apk --no-cache add shadow && \
     groupmod -o -g ${PGID} www-data && \
     usermod -o -u ${PUID} -g www-data www-data
 
-USER www-data
-
 # Source code
-COPY ./ /var/www
+RUN chown www-data:www-data /var/www
+COPY --chown=www-data:www-data ./ /var/www
 WORKDIR /var/www
+
+USER www-data
 
 # Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-#RUN composer install --no-interaction
+RUN composer install --no-interaction
 
 CMD php-fpm
 

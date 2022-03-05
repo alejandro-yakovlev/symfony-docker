@@ -1,0 +1,5 @@
+services:
+  App\Tests\Resource\Fixture\:
+    resource: '%kernel.project_dir%/tests/Resource/Fixture/*'
+    tags:
+      - { "name": "doctrine.fixture.orm" }
