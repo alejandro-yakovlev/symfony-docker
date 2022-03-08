@@ -31,3 +31,8 @@
 - [X] [Repository](https://symfony.com/doc/current/doctrine.html#querying-for-objects-the-repository)
 - [X] [Database Testing](https://symfony.com/doc/current/testing/database.html)
 - [X] [Fixtures](https://symfony.com/bundles/DoctrineFixturesBundle/current/index.html)
+
+### CQRS
+
+- [X] [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
+- [X] [Symfony Messenger](https://symfony.com/doc/current/messenger.html)
