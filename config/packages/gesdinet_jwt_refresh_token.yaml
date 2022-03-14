@@ -1,0 +1,3 @@
+gesdinet_jwt_refresh_token:
+  ttl: 2592000 # 30 days
+  token_parameter_name: refreshToken

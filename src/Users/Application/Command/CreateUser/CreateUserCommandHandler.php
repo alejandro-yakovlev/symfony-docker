@@ -10,7 +10,7 @@ use App\Users\Domain\Repository\UserRepositoryInterface;
 
 class CreateUserCommandHandler implements CommandHandlerInterface
 {
-    public function __construct(private readonly UserRepositoryInterface $userRepository)
+    public function __construct(private readonly UserRepositoryInterface $userRepository, private readonly UserFactory $userFactory)
     {
     }
 
@@ -19,7 +19,7 @@ class CreateUserCommandHandler implements CommandHandlerInterface
      */
     public function __invoke(CreateUserCommand $createUserCommand): string
     {
-        $user = (new UserFactory())->create($createUserCommand->email, $createUserCommand->password);
+        $user = $this->userFactory->create($createUserCommand->email, $createUserCommand->password);
         $this->userRepository->add($user);
 
         return $user->getUlid();

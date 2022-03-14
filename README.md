@@ -36,3 +36,7 @@
 
 - [X] [CQRS pattern](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs)
 - [X] [Symfony Messenger](https://symfony.com/doc/current/messenger.html)
+
+### Auth
+- [X] [JWT Authentication](https://github.com/lexik/LexikJWTAuthenticationBundle)
+- [X] [JWT Refresh Token](https://github.com/markitosgv/JWTRefreshTokenBundle)
