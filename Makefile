@@ -30,3 +30,12 @@ dc_down:
 
 app_bash:
 	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bash
+
+
+##################
+# Database
+##################
+db_migrate:
+	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console doctrine:migrations:migrate --no-interaction
+db_diff:
+	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console doctrine:migrations:diff --no-interaction

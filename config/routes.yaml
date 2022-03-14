@@ -5,3 +5,13 @@ controllers:
 kernel:
     resource: ../src/Shared/Infrastructure/Kernel.php
     type: annotation
+
+gesdinet_jwt_refresh_token:
+    path: /api/auth/token/refresh
+
+api_login_check:
+    path: /api/auth/token/login
+
+users:
+    resource: ../src/Users/Infrastructure/Controller/
+    type: annotation
