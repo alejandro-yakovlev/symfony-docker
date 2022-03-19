@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Users\Domain\Entity;
 
-use App\Shared\Damain\Security\AuthUserInterface;
-use App\Shared\Damain\Service\UlidService;
+use App\Shared\Domain\Security\AuthUserInterface;
+use App\Shared\Domain\Service\UlidService;
 use App\Users\Domain\Service\UserPasswordHasherInterface;
 
 class User implements AuthUserInterface
