@@ -42,7 +42,7 @@ class User implements AuthUserInterface
         ];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // TODO: Implement eraseCredentials() method.
     }
@@ -52,8 +52,10 @@ class User implements AuthUserInterface
         return $this->email;
     }
 
-    public function setPassword(?string $password, UserPasswordHasherInterface $passwordHasher): void
-    {
+    public function setPassword(
+        ?string $password,
+        UserPasswordHasherInterface $passwordHasher
+    ): void {
         if (is_null($password)) {
             $this->password = null;
         }

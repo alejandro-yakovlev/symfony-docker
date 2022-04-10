@@ -11,7 +11,7 @@ class GetMeActionTest extends WebTestCase
 {
     use FixtureTools;
 
-    public function test_get_me_action()
+    public function test_get_me_action(): void
     {
         $client = static::createClient();
         $user = $this->loadUserFixture();
@@ -34,7 +34,7 @@ class GetMeActionTest extends WebTestCase
         // act
         $client->request('GET', '/api/users/me');
 
-        //assert
+        // assert
         $data = json_decode($client->getResponse()->getContent(), true);
         $this->assertEquals($user->getEmail(), $data['email']);
     }

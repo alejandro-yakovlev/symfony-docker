@@ -1,4 +1,13 @@
 {
+    "composer/pcre": {
+        "version": "3.0.0"
+    },
+    "composer/semver": {
+        "version": "3.3.2"
+    },
+    "composer/xdebug-handler": {
+        "version": "3.0.3"
+    },
     "dama/doctrine-test-bundle": {
         "version": "6.7",
         "recipe": {
@@ -101,6 +110,18 @@
     "fakerphp/faker": {
         "version": "v1.19.0"
     },
+    "friendsofphp/php-cs-fixer": {
+        "version": "3.8",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "be2103eb4a20942e28a6dd87736669b757132435"
+        },
+        "files": [
+            ".php-cs-fixer.dist.php"
+        ]
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
@@ -146,6 +167,9 @@
     "phar-io/version": {
         "version": "3.1.1"
     },
+    "php-cs-fixer/diff": {
+        "version": "v2.0.2"
+    },
     "phpdocumentor/reflection-common": {
         "version": "2.2.0"
     },
@@ -157,6 +181,9 @@
     },
     "phpspec/prophecy": {
         "version": "v1.15.0"
+    },
+    "phpstan/phpstan": {
+        "version": "1.5.4"
     },
     "phpunit/php-code-coverage": {
         "version": "9.2.11"
@@ -198,6 +225,15 @@
     },
     "psr/log": {
         "version": "3.0.0"
+    },
+    "qossmic/deptrac-shim": {
+        "version": "0.19",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "0.19",
+            "ref": "3c3daab46226c37fc14e10faf81df737a3039d96"
+        }
     },
     "sebastian/cli-parser": {
         "version": "1.0.1"
@@ -353,6 +389,9 @@
             "config/packages/messenger.yaml"
         ]
     },
+    "symfony/options-resolver": {
+        "version": "v6.0.3"
+    },
     "symfony/password-hasher": {
         "version": "v6.0.3"
     },
@@ -388,6 +427,9 @@
     },
     "symfony/polyfill-uuid": {
         "version": "v1.24.0"
+    },
+    "symfony/process": {
+        "version": "v6.0.7"
     },
     "symfony/property-access": {
         "version": "v6.0.5"
