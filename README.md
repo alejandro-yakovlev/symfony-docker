@@ -40,3 +40,8 @@
 ### Auth
 - [X] [JWT Authentication](https://github.com/lexik/LexikJWTAuthenticationBundle)
 - [X] [JWT Refresh Token](https://github.com/markitosgv/JWTRefreshTokenBundle)
+
+### Static analysis tool
+- [X] [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
+- [X] [Deptrac](https://qossmic.github.io/deptrac/)
+- [X] [PHPStan](https://github.com/phpstan/phpstan)

@@ -3,9 +3,9 @@
 namespace App\Tests\Functional\Users\Infrastructure\Repository;
 
 use App\Tests\Resource\Fixture\UserFixture;
+use App\Tests\Tools\FakerTools;
 use App\Users\Domain\Factory\UserFactory;
 use App\Users\Infrastructure\Repository\UserRepository;
-use Faker\Factory;
 use Faker\Generator;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
@@ -13,16 +13,19 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class UserRepositoryTest extends WebTestCase
 {
+    use FakerTools;
+
     private UserRepository $repository;
     private Generator $faker;
     private AbstractDatabaseTool $databaseTool;
+    private UserFactory $userFactory;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->repository = static::getContainer()->get(UserRepository::class);
         $this->userFactory = static::getContainer()->get(UserFactory::class);
-        $this->faker = Factory::create();
+        $this->faker = $this->getFaker();
         $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
     }
 
@@ -43,7 +46,8 @@ class UserRepositoryTest extends WebTestCase
         $this->assertEquals($user->getUlid(), $existingUser->getUlid());
     }
 
-    public function test_user_found_successfully(): void{
+    public function test_user_found_successfully(): void
+    {
         // arrange
         $executor = $this->databaseTool->loadFixtures([UserFixture::class]);
         $user = $executor->getReferenceRepository()->getReference(UserFixture::REFERENCE);
@@ -51,7 +55,7 @@ class UserRepositoryTest extends WebTestCase
         // act
         $existingUser = $this->repository->findByUlid($user->getUlid());
 
-        //assert
+        // assert
         $this->assertEquals($user->getUlid(), $existingUser->getUlid());
     }
 }

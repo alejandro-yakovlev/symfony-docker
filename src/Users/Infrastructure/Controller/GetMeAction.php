@@ -15,7 +15,7 @@ class GetMeAction
     {
     }
 
-    public function __invoke()
+    public function __invoke(): JsonResponse
     {
         $user = $this->userFetcher->getAuthUser();
 
