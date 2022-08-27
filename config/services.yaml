@@ -25,6 +25,16 @@ services:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
 
+        App\Shared\Domain\Event\EventHandlerInterface:
+            tags:
+                - { name: messenger.message_handler, bus: event.bus }
+
     App\Users\Infrastructure\Controller\:
         resource: '../src/Users/Infrastructure/Controller/'
         tags: [ 'controller.service_arguments' ]
+
+
+    App\Shared\Infrastructure\Doctrine\DomainEventSubscriber:
+      tags: [ { name: 'doctrine.event_subscriber' } ]
+      arguments:
+          $containerBag: '@service_container'

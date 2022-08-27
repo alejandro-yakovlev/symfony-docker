@@ -10,19 +10,19 @@ use App\Users\Domain\Service\UserPasswordHasherInterface;
 
 class User implements AuthUserInterface
 {
-    private string $ulid;
+    private string $id;
     private string $email;
     private ?string $password = null;
 
     public function __construct(string $email)
     {
-        $this->ulid = UlidService::generate();
+        $this->id = UlidService::generate();
         $this->email = $email;
     }
 
-    public function getUlid(): string
+    public function getId(): string
     {
-        return $this->ulid;
+        return $this->id;
     }
 
     public function getEmail(): string

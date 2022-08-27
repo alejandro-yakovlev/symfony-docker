@@ -14,6 +14,6 @@ class UserDTO
 
     public static function fromEntity(User $user): self
     {
-        return new self($user->getUlid(), $user->getEmail());
+        return new self($user->getId(), $user->getEmail());
     }
 }

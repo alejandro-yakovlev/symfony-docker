@@ -16,6 +16,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Users/Infrastructure/Database/ORM'
                 prefix: 'App\Users\Domain\Entity'
                 alias: Users
+            Skills:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Skills/Infrastructure/Database/ORM'
+                prefix: 'App\Skills\Domain\Entity'
+                alias: Skills
 
 #when@test:
 #    doctrine:

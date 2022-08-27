@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 interface AuthUserInterface extends UserInterface, PasswordAuthenticatedUserInterface
 {
-    public function getUlid(): string;
+    public function getId(): string;
 
     public function getEmail(): string;
 }

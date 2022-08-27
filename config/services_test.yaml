@@ -12,3 +12,16 @@ services:
 
   App\Shared\Infrastructure\Bus\QueryBus:
     public: true
+
+  App\Shared\Infrastructure\Bus\EventBus:
+    public: true
+
+  App\Skills\Domain\Factory\:
+    resource: '../src/Skills/Domain/Factory'
+    public: true
+  App\Skills\Domain\Specification\:
+    resource: '../src/Skills/Domain/Specification'
+    public: true
+  App\Skills\Domain\Repository\:
+    resource: '../src/Skills/Domain/Repository'
+    public: true

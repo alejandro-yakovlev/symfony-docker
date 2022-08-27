@@ -20,7 +20,7 @@ class GetMeAction
         $user = $this->userFetcher->getAuthUser();
 
         return new JsonResponse([
-            'ulid' => $user->getUlid(),
+            'ulid' => $user->getId(),
             'email' => $user->getEmail(),
         ]);
     }

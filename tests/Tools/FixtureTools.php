@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Tools;
 
-use App\Tests\Resource\Fixture\UserFixture;
+use App\Tests\Resource\Fixture\Users\UserFixture;
 use App\Users\Domain\Entity\User;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;

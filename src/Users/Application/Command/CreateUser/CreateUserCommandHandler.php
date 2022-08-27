@@ -15,13 +15,13 @@ class CreateUserCommandHandler implements CommandHandlerInterface
     }
 
     /**
-     * @return string User ULID
+     * @return string UserId
      */
     public function __invoke(CreateUserCommand $createUserCommand): string
     {
         $user = $this->userFactory->create($createUserCommand->email, $createUserCommand->password);
         $this->userRepository->add($user);
 
-        return $user->getUlid();
+        return $user->getId();
     }
 }
