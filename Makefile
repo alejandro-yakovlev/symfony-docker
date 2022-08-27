@@ -30,6 +30,9 @@ dc_logs:
 dc_down:
 	${DOCKER_COMPOSE} down -v --rmi=all --remove-orphans
 
+dc_restart:
+	make dc_stop dc_start
+
 
 ##################
 # App
@@ -37,7 +40,15 @@ dc_down:
 
 app_bash:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
-
+php:
+	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
+test:
+	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/phpunit
+jwt:
+	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console lexik:jwt:generate-keypair
+cache:
+	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console cache:clear
+	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console cache:clear --env=test
 
 ##################
 # Database
@@ -47,6 +58,9 @@ db_migrate:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:migrate --no-interaction
 db_diff:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:diff --no-interaction
+db_drop:
+	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console doctrine:schema:drop --force
+
 
 ##################
 # Static code analysis

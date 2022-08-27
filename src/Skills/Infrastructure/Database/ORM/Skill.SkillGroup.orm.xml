@@ -1,0 +1,13 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Skills\Domain\Entity\Skill\SkillGroup" table="skills_skill_group">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="name" type="string" unique="true"/>
+    </entity>
+
+</doctrine-mapping>

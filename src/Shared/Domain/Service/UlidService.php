@@ -17,4 +17,9 @@ class UlidService
     {
         return Ulid::generate();
     }
+
+    public static function isValid(string $ulid): bool
+    {
+        return Ulid::isValid($ulid);
+    }
 }

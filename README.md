@@ -45,3 +45,6 @@
 - [X] [PHP CS Fixer](https://github.com/FriendsOfPHP/PHP-CS-Fixer)
 - [X] [Deptrac](https://qossmic.github.io/deptrac/)
 - [X] [PHPStan](https://github.com/phpstan/phpstan)
+
+### DDD
+- [X] [Strategic & Tactical design]()

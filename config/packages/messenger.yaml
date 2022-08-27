@@ -6,6 +6,8 @@ framework:
                 middleware:
                     - doctrine_transaction
             query.bus:
+            event.bus:
+                default_middleware: allow_no_handlers
 
         # Uncomment this (and the failed transport below) to send failed messages to this transport for later handling.
         # failure_transport: failed
