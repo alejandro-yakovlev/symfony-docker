@@ -128,6 +128,9 @@
     "gesdinet/jwt-refresh-token-bundle": {
         "version": "v1.0.1"
     },
+    "jetbrains/phpstorm-attributes": {
+        "version": "1.0"
+    },
     "laminas/laminas-code": {
         "version": "4.5.1"
     },
@@ -476,6 +479,9 @@
     },
     "symfony/security-http": {
         "version": "v6.0.5"
+    },
+    "symfony/serializer": {
+        "version": "v6.0.12"
     },
     "symfony/service-contracts": {
         "version": "v3.0.0"
