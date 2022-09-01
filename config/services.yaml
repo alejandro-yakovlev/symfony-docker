@@ -38,3 +38,8 @@ services:
       tags: [ { name: 'doctrine.event_subscriber' } ]
       arguments:
           $containerBag: '@service_container'
+
+
+    App\Core\EventListener\BuiltInEventsSubscriber:
+        tags:
+            - { name: kernel.event_subscriber }
