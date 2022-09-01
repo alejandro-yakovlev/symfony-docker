@@ -40,6 +40,10 @@ services:
           $containerBag: '@service_container'
 
 
-    App\Core\EventListener\BuiltInEventsSubscriber:
+    App\Core\EventListener\ExceptionListener:
         tags:
-            - { name: kernel.event_subscriber }
+            - { name: kernel.event_listener, event: kernel.exception }
+
+#    App\Core\EventListener\BuiltInEventsSubscriber:
+#        tags:
+#            - { name: kernel.event_subscriber }
