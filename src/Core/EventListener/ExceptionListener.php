@@ -21,7 +21,7 @@ class ExceptionListener
         // Получаем MIME тип из заголовка Accept
         $acceptHeader = $event->getRequest()->headers->get('Accept');
 
-        if (self::MIME_JSON != $acceptHeader) {
+        if (self::MIME_JSON === $acceptHeader) {
             $exception = $event->getThrowable();
             $response = new JsonResponse();
             $response->setContent($this->exceptionToJson($exception));
