@@ -10,12 +10,3 @@ overblog_graphql:
                 - type: attribute
                   dir: "%kernel.project_dir%/src"
                   suffix: ~
-        # disable listener the bundle out of box classLoader
-        use_classloader_listener: false
-        # change to "false" to disable auto compilation.
-        # To generate types manually, see "graphql:compile" command.
-        auto_compile: true
-        # change classes cache dir (recommends using a directory that will be committed)
-        cache_dir: "%kernel.project_dir%/generated/classes"
-        # Can also change the namespace
-        #class_namespace: "Overblog\\GraphQLBundle\\__DEFINITIONS__"

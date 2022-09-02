@@ -53,8 +53,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/",
-            "Overblog\\GraphQLBundle\\__DEFINITIONS__\\": "generated/classes/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
