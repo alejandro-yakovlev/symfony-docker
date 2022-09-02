@@ -1,0 +1,13 @@
+Query:
+  type: object
+  config:
+    description: "Запросы модуля навыков."
+    fields:
+      findSkillGroupById:
+        type: "SkillGroup"
+        description: "Найти группу навыков по идентификатору."
+        args:
+          id:
+            description: "ID групп навыков"
+            type: "String!"
+        resolve: "@=query('findSkillGroupById', args['id'])"

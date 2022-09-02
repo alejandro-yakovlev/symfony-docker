@@ -12,6 +12,7 @@
         "doctrine/orm": "^2.11",
         "gesdinet/jwt-refresh-token-bundle": "1.0.*",
         "lexik/jwt-authentication-bundle": "^2.14",
+        "overblog/graphql-bundle": "^0.15.1",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
@@ -30,6 +31,7 @@
         "friendsofphp/php-cs-fixer": "^3.8",
         "jetbrains/phpstorm-attributes": "^1.0",
         "liip/test-fixtures-bundle": "^2.2",
+        "overblog/graphiql-bundle": "^0.3.0",
         "phpstan/phpstan": "^1.5",
         "phpunit/phpunit": "^9.5",
         "qossmic/deptrac-shim": "^0.19.3",
@@ -51,7 +53,8 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "App\\": "src/",
+            "Overblog\\GraphQLBundle\\__DEFINITIONS__\\": "generated/classes/"
         }
     },
     "autoload-dev": {
