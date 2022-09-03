@@ -20,7 +20,6 @@
         "symfony/messenger": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
-        "symfony/serializer": "6.0.*",
         "symfony/uid": "6.0.*",
         "symfony/yaml": "6.0.*"
     },
