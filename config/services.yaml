@@ -44,6 +44,16 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-#    App\Core\EventListener\BuiltInEventsSubscriber:
-#        tags:
-#            - { name: kernel.event_subscriber }
+    # PUBLIC SERVICES
+
+    App\*\Domain\Specification\:
+        namespace: App\
+        public: true
+        resource: '../src/*/Domain/Specification'
+        exclude: '../src/Shared/*'
+
+    App\*\Domain\Factory\:
+        namespace: App\
+        public: true
+        resource: '../src/*/Domain/Factory'
+        exclude: '../src/Shared/*'

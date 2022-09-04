@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Skills\Domain\Entity\Skill;
 
+use App\Shared\Domain\Entity\Aggregate;
 use App\Shared\Domain\Service\UlidService;
-use App\Skills\Domain\Specification\SkillGroupNameSpecification;
+use App\Skills\Domain\Specification\Skill\SkillGroupNameSpecification;
 
 /**
  * Группа навыков.
  */
-class SkillGroup
+class SkillGroup extends Aggregate
 {
     private string $id;
 

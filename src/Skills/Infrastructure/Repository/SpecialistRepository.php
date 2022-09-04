@@ -7,7 +7,7 @@ use App\Skills\Domain\Repository\SpecialistRepositoryInterface;
 
 class SpecialistRepository implements SpecialistRepositoryInterface
 {
-    public function findByGlobalUserId(string $globalUserId): ?Specialist
+    public function findOneByGlobalUserId(string $globalUserId): ?Specialist
     {
         // TODO: Implement findByGlobalUserId() method.
     }

@@ -14,7 +14,7 @@ class SkillGroupRepository extends ServiceEntityRepository implements SkillGroup
         parent::__construct($registry, SkillGroup::class);
     }
 
-    public function findByName(string $name): ?SkillGroup
+    public function findOneByName(string $name): ?SkillGroup
     {
         return $this->findOneBy(['name' => $name]);
     }
@@ -23,5 +23,22 @@ class SkillGroupRepository extends ServiceEntityRepository implements SkillGroup
     {
         $this->_em->persist($entity);
         $this->_em->flush();
+    }
+
+    public function findOneById(string $id): ?SkillGroup
+    {
+        return $this->find($id);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function findByName(string $name): array
+    {
+        $qb = $this->createQueryBuilder('sg');
+        $qb->where($qb->expr()->like('sg.name', ':name'))
+            ->setParameter('name', $name);
+
+        return $qb->getQuery()->getResult();
     }
 }

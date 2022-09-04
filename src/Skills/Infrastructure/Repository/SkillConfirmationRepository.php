@@ -7,7 +7,7 @@ use App\Skills\Domain\Repository\SkillConfirmationRepositoryInterface;
 
 class SkillConfirmationRepository implements SkillConfirmationRepositoryInterface
 {
-    public function findBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation
+    public function findOneBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation
     {
         // TODO: Implement findBySpecialist() method.
     }

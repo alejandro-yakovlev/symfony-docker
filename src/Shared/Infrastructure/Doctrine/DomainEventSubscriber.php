@@ -67,7 +67,7 @@ final class DomainEventSubscriber implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         $reflect = new ReflectionClass($entity);
 

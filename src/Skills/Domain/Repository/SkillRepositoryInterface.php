@@ -13,5 +13,5 @@ interface SkillRepositoryInterface
      */
     public function findByName(string $name): array;
 
-    public function findById(string $skillId): ?Skill;
+    public function findOneById(string $skillId): ?Skill;
 }

@@ -2,6 +2,7 @@ overblog_graphql:
     definitions:
         schema:
             query: Query
+            mutation: Mutation
         mappings:
             types:
                 - type: yaml
@@ -10,3 +11,8 @@ overblog_graphql:
                 - type: attribute
                   dir: "%kernel.project_dir%/src"
                   suffix: ~
+    errors_handler:
+      map_exceptions_to_parent: false
+      exceptions:
+        errors:
+          - "Webmozart\\Assert\\InvalidArgumentException"

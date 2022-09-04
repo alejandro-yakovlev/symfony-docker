@@ -24,11 +24,11 @@ class SkillConfirmationService
 
     public function confirm(string $globalUserId, string $skillId, string $testId, int $correctAnswersPercentage): void
     {
-        $specialist = $this->specialistRepository->findByGlobalUserId($globalUserId);
-        $skill = $this->skillRepository->findById($skillId);
+        $specialist = $this->specialistRepository->findOneByGlobalUserId($globalUserId);
+        $skill = $this->skillRepository->findOneById($skillId);
         $level = $this->makeLevelFromCorrectAnswersPercentage($correctAnswersPercentage);
 
-        $skillConfirmation = $this->skillConfirmationRepository->findBySpecialist($skillId, $specialist->getId());
+        $skillConfirmation = $this->skillConfirmationRepository->findOneBySpecialist($skillId, $specialist->getId());
         if (!$skillConfirmation) {
             $skillConfirmation = $this->skillConfirmationFactory->create($specialist, $skill);
         }

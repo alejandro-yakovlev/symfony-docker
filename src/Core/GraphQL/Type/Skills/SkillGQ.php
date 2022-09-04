@@ -2,15 +2,16 @@
 
 declare(strict_types=1);
 
-namespace App\Core\GraphQL\Skills;
+namespace App\Core\GraphQL\Type\Skills;
 
+use App\Skills\Application\DTO\SkillDTO;
 use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[
-    GQL\Type,
-    GQL\Description('Группа навыков')
+    GQL\Type(name: 'Skill'),
+    GQL\Description('Навык')
 ]
-class SkillGroup
+class SkillGQ
 {
     #[
         GQL\Field,
@@ -30,8 +31,16 @@ class SkillGroup
         $this->name = $name;
     }
 
+    public static function fromDTO(SkillDTO $dto): self
+    {
+        return new self(
+            id: $dto->id,
+            name: $dto->name,
+        );
+    }
+
     public function toArray(): array
     {
-        return [];
+        return get_object_vars($this);
     }
 }

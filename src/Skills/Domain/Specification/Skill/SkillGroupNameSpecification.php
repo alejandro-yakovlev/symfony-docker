@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Skills\Domain\Specification;
+namespace App\Skills\Domain\Specification\Skill;
 
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Specification\SpecificationInterface;
@@ -9,7 +9,8 @@ use App\Skills\Domain\Repository\SkillGroupRepositoryInterface;
 
 class SkillGroupNameSpecification implements SpecificationInterface
 {
-    public function __construct(private readonly SkillGroupRepositoryInterface $skillGroupRepository
+    public function __construct(
+        private readonly SkillGroupRepositoryInterface $skillGroupRepository
     ) {
     }
 
@@ -17,7 +18,7 @@ class SkillGroupNameSpecification implements SpecificationInterface
     {
         AssertService::lengthBetween($skillGroup->getName(), 2, 100);
         AssertService::true(
-            empty($this->skillGroupRepository->findByName($skillGroup->getName())),
+            empty($this->skillGroupRepository->findOneByName($skillGroup->getName())),
             'Название группы должно быть уникальным'
         );
     }

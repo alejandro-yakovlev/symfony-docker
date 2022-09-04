@@ -21,7 +21,7 @@ class SpecialityNameSpecification implements SpecificationInterface
 
     private function hasUniqueName(Speciality $speciality): bool
     {
-        $foundSpeciality = $this->specialityRepository->findByName($speciality->getName());
+        $foundSpeciality = $this->specialityRepository->findOneByName($speciality->getName());
 
         return is_null($foundSpeciality) || $speciality->getId() === $foundSpeciality->getId();
     }

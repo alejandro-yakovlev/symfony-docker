@@ -4,12 +4,20 @@ namespace App\Skills\Infrastructure\Repository;
 
 use App\Skills\Domain\Entity\Skill\Skill;
 use App\Skills\Domain\Repository\SkillRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class SkillRepository implements SkillRepositoryInterface
+class SkillRepository extends ServiceEntityRepository implements SkillRepositoryInterface
 {
-    public function add(Skill $skill): void
+    public function __construct(ManagerRegistry $registry)
     {
-        // TODO: Implement add() method.
+        parent::__construct($registry, Skill::class);
+    }
+
+    public function add(Skill $entity): void
+    {
+        $this->_em->persist($entity);
+        $this->_em->flush();
     }
 
     /**
@@ -17,11 +25,11 @@ class SkillRepository implements SkillRepositoryInterface
      */
     public function findByName(string $name): array
     {
-        // TODO: Implement findByName() method.
+        return $this->findBy(['name' => $name]);
     }
 
-    public function findById(string $skillId): ?Skill
+    public function findOneById(string $skillId): ?Skill
     {
-        // TODO: Implement findById() method.
+        return $this->find($skillId);
     }
 }

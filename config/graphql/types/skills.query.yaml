@@ -3,6 +3,16 @@ Query:
   config:
     description: "Запросы модуля навыков."
     fields:
+
+      findSkillById:
+        type: "Skill"
+        description: "Найти навык по идентификатору."
+        args:
+          id:
+            description: "ID навыка"
+            type: "String!"
+        resolve: "@=query('findSkillById', args['id'])"
+
       findSkillGroupById:
         type: "SkillGroup"
         description: "Найти группу навыков по идентификатору."
@@ -11,3 +21,12 @@ Query:
             description: "ID групп навыков"
             type: "String!"
         resolve: "@=query('findSkillGroupById', args['id'])"
+
+      findSkillGroupsByName:
+        type: "[SkillGroup]"
+        description: "Найти группы навыков по названию."
+        args:
+          name:
+            description: "Название"
+            type: "String!"
+        resolve: "@=query('findSkillGroupsByName', args['name'])"

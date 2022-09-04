@@ -6,5 +6,5 @@ use App\Skills\Domain\Entity\Speciality\Speciality;
 
 interface SpecialityRepositoryInterface
 {
-    public function findByName(string $getName): ?Speciality;
+    public function findOneByName(string $getName): ?Speciality;
 }

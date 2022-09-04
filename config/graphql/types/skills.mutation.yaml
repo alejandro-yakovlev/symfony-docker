@@ -1,0 +1,23 @@
+Mutation:
+  type: object
+  config:
+    description: "Мутации модуля навыков."
+    fields:
+
+      createSkillGroup:
+        type: "SkillGroup"
+        description: "Создать группу навыков."
+        resolve: "@=mutation('createSkillGroup', args['name'])"
+        args:
+            name:
+              type: "String!"
+
+      createSkill:
+        type: "Skill"
+        description: "Создать навык."
+        resolve: "@=mutation('createSkill', args['name'], args['skillGroupId'])"
+        args:
+            name:
+              type: "String!"
+            skillGroupId:
+              type: "String!"

@@ -7,7 +7,7 @@ use App\Skills\Domain\Repository\SpecialityRepositoryInterface;
 
 class SpecialityRepository implements SpecialityRepositoryInterface
 {
-    public function findByName(string $getName): ?Speciality
+    public function findOneByName(string $getName): ?Speciality
     {
         // TODO: Implement findByName() method.
     }
