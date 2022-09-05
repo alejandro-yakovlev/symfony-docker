@@ -25,7 +25,7 @@ class ExceptionListener
 
             // HttpException содержит информацию о заголовках и статусе, испольузем это
             if ($exception instanceof HttpExceptionInterface) {
-                $response->setStatusCode($event->getResponse()->getStatusCode());
+                $response->setStatusCode($exception->getStatusCode());
                 $response->headers->replace($exception->getHeaders());
             } else {
                 $response->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
