@@ -3,18 +3,11 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Testing\Domain\Entity\Test\Test" table="skills_skill">
+    <entity name="App\Skills\Domain\Entity\Skill\SkillGroup" table="skills_skill_group">
         <id name="id" type="string" length="26">
             <generator strategy="NONE"/>
         </id>
-
         <field name="name" type="string" unique="true"/>
-
-        <many-to-one field="skillGroup" target-entity="App\Skills\Domain\Entity\Skill\SkillGroup"/>
-
-        <unique-constraints>
-            <unique-constraint fields="name,skillGroup"/>
-        </unique-constraints>
     </entity>
 
 </doctrine-mapping>

@@ -29,6 +29,11 @@ security:
             stateless: true
             jwt: ~
 
+        graphql:
+            pattern: ^/graphql
+            stateless: true
+            jwt: ~
+
     access_control:
         - { path: ^/api/auth/token/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/auth/token/refresh, roles: PUBLIC_ACCESS }

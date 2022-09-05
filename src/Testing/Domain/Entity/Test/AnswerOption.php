@@ -34,4 +34,19 @@ class AnswerOption
     {
         return $this->isCorrect;
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getQuestion(): Question
+    {
+        return $this->question;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
 }

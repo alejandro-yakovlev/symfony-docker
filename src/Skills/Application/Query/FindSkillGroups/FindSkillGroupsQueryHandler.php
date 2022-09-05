@@ -20,7 +20,7 @@ class FindSkillGroupsQueryHandler implements QueryHandlerInterface
      */
     public function __invoke(FindSkillGroupsQuery $query): array
     {
-        $skillGroups = $this->skillGroupRepository->findByName($query->name);
+        $skillGroups = $this->skillGroupRepository->findLikeName($query->name);
 
         return array_map(fn (SkillGroup $dto) => SkillGroupDTO::fromEntity($dto), $skillGroups);
     }

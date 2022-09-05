@@ -34,7 +34,7 @@ class Test
     /**
      * Навык, который тестирует тест.
      */
-    private string $skillId;
+    private ?string $skillId = null;
 
     /**
      * Уровень сложности.
@@ -52,14 +52,11 @@ class Test
 
     private ?DateTimeImmutable $deletedAt = null;
 
-    private string $testId;
-
     public function __construct(
         GlobalUserId $creator,
         string $name,
         string $description,
         DifficultyLevel $difficultyLevel,
-        string $testId,
     ) {
         $this->id = ULIDService::generate();
         $this->creator = $creator;
@@ -68,7 +65,6 @@ class Test
         $this->questions = new ArrayCollection();
         $this->difficultyLevel = $difficultyLevel;
         $this->createdAt = new DateTimeImmutable();
-        $this->testId = $testId;
     }
 
     public function setCorrectAnswersPercentage(int $correctAnswersPercentage): self
@@ -94,6 +90,26 @@ class Test
         return $this->skillId;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
+    public function getDifficultyLevel(): DifficultyLevel
+    {
+        return $this->difficultyLevel;
+    }
+
     public function getQuestions(): Collection
     {
         return $this->questions;
@@ -102,5 +118,10 @@ class Test
     public function addQuestion(Question $question): void
     {
         $this->questions->add($question);
+    }
+
+    public function setSkillId(?string $skillId): void
+    {
+        $this->skillId = $skillId;
     }
 }

@@ -33,11 +33,11 @@ class SkillGroupRepository extends ServiceEntityRepository implements SkillGroup
     /**
      * {@inheritDoc}
      */
-    public function findByName(string $name): array
+    public function findLikeName(string $name): array
     {
         $qb = $this->createQueryBuilder('sg');
         $qb->where($qb->expr()->like('sg.name', ':name'))
-            ->setParameter('name', $name);
+            ->setParameter('name', '%'.$name.'%');
 
         return $qb->getQuery()->getResult();
     }

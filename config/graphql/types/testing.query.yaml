@@ -1,0 +1,14 @@
+TestingQueries:
+  type: object
+  config:
+    description: "Запросы модуля тестирования."
+    fields:
+
+      findTestById:
+        type: "Test"
+        description: "Найти тест по идентификатору."
+        args:
+          id:
+            description: "ID теста"
+            type: "String!"
+        resolve: "@=query('findTestById', args['id'])"

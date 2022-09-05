@@ -64,4 +64,29 @@ class Question
 
         $this->answerOptions->add($answerOption);
     }
+
+    public function getTest(): Test
+    {
+        return $this->test;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getPositionNumber(): int
+    {
+        return $this->positionNumber;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
+    public function getType(): QuestionType
+    {
+        return $this->type;
+    }
 }

@@ -1,8 +1,12 @@
 overblog_graphql:
     definitions:
         schema:
-            query: Query
-            mutation: Mutation
+            skills:
+              query: Query
+              mutation: Mutation
+            testing:
+              query: TestingQueries
+              mutation: TestingMutations
         mappings:
             types:
                 - type: yaml

@@ -1,0 +1,21 @@
+TestingMutations:
+  type: object
+  config:
+    description: "Мутации модуля тестирования."
+    fields:
+
+      createTest:
+        type: "Test"
+        description: "Создать тест."
+        resolve: "@=mutation('createTest', args['name'], args['description'], args['difficultyLevel'], args['correctAnswersPercentage'], args['skillId'])"
+        args:
+          name:
+            type: "String!"
+          description:
+            type: "String!"
+          difficultyLevel:
+            type: "DifficultyLevelEnum!"
+          correctAnswersPercentage:
+            type: "Int!"
+          skillId:
+            type: "String"
