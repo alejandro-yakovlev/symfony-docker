@@ -1,0 +1,11 @@
+UsersMutations:
+  type: object
+  config:
+    description: "Мутации модуля пользователей."
+    fields:
+
+      uploadUserAvatar:
+        type: String!
+        resolve: "@=mutation('uploadUserAvatar', args['file'])"
+        args:
+          file: MyUpload!

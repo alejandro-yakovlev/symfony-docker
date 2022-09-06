@@ -17,7 +17,7 @@ class FindSkillGroupsByNameGQ implements QueryInterface, AliasedInterface
     {
     }
 
-    public function findSkillGroupsByName(string $name): array
+    public function __invoke(string $name): array
     {
         /** @var SkillGroupDTO[] $skillGroups */
         $skillGroups = $this->queryBus->execute(new FindSkillGroupsQuery($name));
@@ -30,6 +30,6 @@ class FindSkillGroupsByNameGQ implements QueryInterface, AliasedInterface
      */
     public static function getAliases(): array
     {
-        return ['findSkillGroupsByName' => 'findSkillGroupsByName'];
+        return ['__invoke' => 'findSkillGroupsByName'];
     }
 }

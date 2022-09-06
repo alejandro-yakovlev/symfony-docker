@@ -23,7 +23,7 @@ class CreateTestGQ implements MutationInterface, AliasedInterface
     ) {
     }
 
-    public function createTest(
+    public function __invoke(
         string $name,
         string $description,
         string $difficultyLevel,
@@ -44,6 +44,6 @@ class CreateTestGQ implements MutationInterface, AliasedInterface
 
     public static function getAliases(): array
     {
-        return ['createTest' => 'createTest'];
+        return ['__invoke' => 'createTest'];
     }
 }

@@ -19,7 +19,7 @@ class CreateSkillGroupGQ implements MutationInterface, AliasedInterface
     {
     }
 
-    public function createSkillGroup(string $name): array
+    public function __invoke(string $name): array
     {
         $skillGroupId = $this->commandBus->execute(new CreateSkillGroupCommand($name));
         /** @var SkillGroupDTO $skillGroup */
@@ -30,6 +30,6 @@ class CreateSkillGroupGQ implements MutationInterface, AliasedInterface
 
     public static function getAliases(): array
     {
-        return ['createSkillGroup' => 'createSkillGroup'];
+        return ['__invoke' => 'createSkillGroup'];
     }
 }

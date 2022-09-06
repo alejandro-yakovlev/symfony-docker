@@ -1,0 +1,4 @@
+MyUpload:
+  type: custom-scalar
+  config:
+    scalarType: '@=newObject("Overblog\\GraphQLBundle\\Upload\\Type\\GraphQLUploadType")'

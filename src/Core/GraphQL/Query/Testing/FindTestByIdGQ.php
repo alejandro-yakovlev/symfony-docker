@@ -18,7 +18,7 @@ class FindTestByIdGQ implements QueryInterface, AliasedInterface
     {
     }
 
-    public function findTestById(string $id): array
+    public function __invoke(string $id): array
     {
         /** @var TestDTO $test */
         $test = $this->queryBus->execute(new FindTestByIdQuery($id));
@@ -35,6 +35,6 @@ class FindTestByIdGQ implements QueryInterface, AliasedInterface
      */
     public static function getAliases(): array
     {
-        return ['findTestById' => 'findTestById'];
+        return ['__invoke' => 'findTestById'];
     }
 }

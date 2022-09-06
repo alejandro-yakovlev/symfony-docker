@@ -7,6 +7,9 @@ overblog_graphql:
             testing:
               query: TestingQueries
               mutation: TestingMutations
+            users:
+              query: UsersQueries
+              mutation: UsersMutations
         mappings:
             types:
                 - type: yaml

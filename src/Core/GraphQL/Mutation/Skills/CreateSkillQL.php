@@ -19,7 +19,7 @@ class CreateSkillQL implements MutationInterface, AliasedInterface
     {
     }
 
-    public function createSkill(string $name, string $skillGroupId): array
+    public function __invoke(string $name, string $skillGroupId): array
     {
         $skillId = $this->commandBus->execute(new CreateSkillCommand($name, $skillGroupId));
         /** @var SkillDTO $skill */
@@ -30,6 +30,6 @@ class CreateSkillQL implements MutationInterface, AliasedInterface
 
     public static function getAliases(): array
     {
-        return ['createSkill' => 'createSkill'];
+        return ['__invoke' => 'createSkill'];
     }
 }
