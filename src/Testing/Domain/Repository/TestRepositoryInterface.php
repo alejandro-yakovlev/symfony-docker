@@ -16,4 +16,9 @@ interface TestRepositoryInterface
      * @return Test[]
      */
     public function findBySkill(string $skillId): array;
+
+    /**
+     * @return Test[]
+     */
+    public function findByName(string $name): array;
 }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Testing\Application\Command\CreateTest;
 
 use App\Shared\Application\Command\CommandHandlerInterface;
-use App\Shared\Domain\ValueObject\GlobalUserId;
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Testing\Domain\Entity\Test\DifficultyLevel;
 use App\Testing\Domain\Factory\TestFactory;
 use App\Testing\Domain\Repository\TestRepositoryInterface;

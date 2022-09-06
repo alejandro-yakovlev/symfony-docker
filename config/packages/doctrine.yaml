@@ -10,6 +10,12 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
+            Shared:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Shared/Infrastructure/Database/ORM'
+                prefix: 'App\Shared\Domain\Entity'
+                alias: Users
             Users:
                 is_bundle: false
                 type: xml
@@ -21,6 +27,12 @@ doctrine:
                 type: xml
                 dir: '%kernel.project_dir%/src/Skills/Infrastructure/Database/ORM'
                 prefix: 'App\Skills\Domain\Entity'
+                alias: Skills
+            Testing:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Testing/Infrastructure/Database/ORM'
+                prefix: 'App\Testing\Domain\Entity'
                 alias: Skills
 
 #when@test:

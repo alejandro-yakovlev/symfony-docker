@@ -18,11 +18,13 @@ class Question
 
     private Test $test;
 
+    private string $name;
+
     private string $description;
 
     private int $positionNumber;
 
-    private bool $isPublished = false;
+    private bool $published = false;
 
     private QuestionType $type;
 
@@ -31,7 +33,7 @@ class Question
      */
     private Collection $answerOptions;
 
-    public function __construct(Test $testing, string $description, int $positionNumber, QuestionType $type)
+    public function __construct(Test $testing, string $name, string $description, int $positionNumber, QuestionType $type)
     {
         $this->id = ULIDService::generate();
         $this->test = $testing;
@@ -39,6 +41,7 @@ class Question
         $this->positionNumber = $positionNumber;
         $this->type = $type;
         $this->answerOptions = new ArrayCollection();
+        $this->name = $name;
     }
 
     public function getId(): string
@@ -82,7 +85,7 @@ class Question
 
     public function isPublished(): bool
     {
-        return $this->isPublished;
+        return $this->published;
     }
 
     public function getType(): QuestionType

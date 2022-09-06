@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Skills\Domain\Entity\Specialist;
 
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\UlidService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use App\Skills\Domain\Entity\Speciality\Speciality;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;

@@ -2,7 +2,7 @@
 
 namespace App\Company\Domain\Entity\Company;
 
-use App\Shared\Domain\ValueObject\GlobalUserId;
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 
 class Company
 {

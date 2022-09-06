@@ -2,19 +2,22 @@
 
 namespace App\Tests\Functional\Testing\Domain\Entity\TestingSession;
 
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\UlidService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use App\Testing\Domain\Entity\Test\AnswerOption;
 use App\Testing\Domain\Entity\Test\DifficultyLevel;
 use App\Testing\Domain\Entity\Test\Question;
 use App\Testing\Domain\Entity\Test\QuestionType;
-use App\Testing\Domain\Entity\Test\Test;
 use App\Testing\Domain\Entity\TestingSession\TestingSession;
 use App\Testing\Domain\Entity\TestingSession\UserAnswer;
+use App\Testing\Domain\Factory\TestFactory;
+use App\Tests\Tools\DITools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestingSessionCompletionTest extends WebTestCase
 {
+    use DITools;
+
     /**
      * Процент правильно отвеченных вопросов является верным после завершения сессии тестирования.
      *
@@ -28,15 +31,21 @@ class TestingSessionCompletionTest extends WebTestCase
         $testedUserId = UlidService::generate();
 
         $creator = new GlobalUserId($creatorId);
-        $test = new Test(
-            $creator, $testData['name'], $testData['description'], DifficultyLevel::EASY, UlidService::generate()
+        $testFactory = $this->getService(TestFactory::class);
+        $test = $testFactory->create(
+            $creator,
+            $testData['name'],
+            $testData['description'],
+            DifficultyLevel::EASY,
+            10,
+            UlidService::generate(),
         );
 
         $user = new GlobalUserId($testedUserId);
         $testingSession = new TestingSession($test, $user);
 
         foreach ($testData['questions'] as $questionData) {
-            $question = new Question($test, $questionData['description'], 1, $questionData['type']);
+            $question = new Question($test, '', $questionData['description'], 1, $questionData['type']);
             $userAnswer = new UserAnswer($testingSession, $question);
 
             foreach ($questionData['answerOptions'] as $answerOptionData) {

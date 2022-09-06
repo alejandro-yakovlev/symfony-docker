@@ -34,4 +34,9 @@ class TestRepository extends ServiceEntityRepository implements TestRepositoryIn
     {
         return $this->findBy(['skillId' => $skillId]);
     }
+
+    public function findByName(string $name): array
+    {
+        return $this->findBy(['name' => $name]);
+    }
 }

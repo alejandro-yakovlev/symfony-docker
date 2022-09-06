@@ -36,7 +36,7 @@ class TestDTO
             questions: $questions,
             correctAnswersPercentage: $test->getCorrectAnswersPercentage(),
             skillId: $test->getSkillId(),
-            isPublished: $test->isPublished(),
+            isPublished: $test->published(),
         );
     }
 }

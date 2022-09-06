@@ -3,11 +3,15 @@
                   xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
                           https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
 
-    <entity name="App\Skills\Domain\Entity\Skill\SkillGroup" table="skills_skill_group">
+    <entity name="App\Testing\Domain\Entity\Test\AnswerOption" table="testing_answer_option">
         <id name="id" type="string" length="26">
             <generator strategy="NONE"/>
         </id>
-        <field name="name" type="string" unique="true"/>
+
+        <field name="description" type="string"/>
+        <field name="correct" type="boolean"/>
+
+        <many-to-one field="question" target-entity="App\Testing\Domain\Entity\Test\Question"/>
     </entity>
 
 </doctrine-mapping>

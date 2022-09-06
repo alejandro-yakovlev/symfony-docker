@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace App\Testing\Domain\Entity\TestingSession;
 
 use App\Shared\Domain\Entity\Aggregate;
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Service\ULIDService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use App\Testing\Domain\Entity\Test\Test;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
 use DateTimeImmutable;

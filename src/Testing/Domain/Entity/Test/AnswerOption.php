@@ -20,19 +20,19 @@ class AnswerOption
     /**
      * Является ли ответ правильным?
      */
-    private bool $isCorrect;
+    private bool $correct;
 
     public function __construct(Question $question, string $description, bool $isCorrect)
     {
         $this->id = ULIDService::generate();
         $this->question = $question;
         $this->description = $description;
-        $this->isCorrect = $isCorrect;
+        $this->correct = $isCorrect;
     }
 
     public function isCorrect(): bool
     {
-        return $this->isCorrect;
+        return $this->correct;
     }
 
     public function getId(): string

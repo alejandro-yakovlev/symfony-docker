@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Service\ULIDService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
+use App\Testing\Domain\Specification\TestSpecification;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -29,7 +30,7 @@ class Test
      */
     private int $correctAnswersPercentage = 0;
 
-    private bool $isPublished = false;
+    private bool $published = false;
 
     /**
      * Навык, который тестирует тест.
@@ -52,15 +53,19 @@ class Test
 
     private ?DateTimeImmutable $deletedAt = null;
 
+    private TestSpecification $testSpecification;
+
     public function __construct(
         GlobalUserId $creator,
         string $name,
         string $description,
         DifficultyLevel $difficultyLevel,
+        TestSpecification $testSpecification
     ) {
+        $this->testSpecification = $testSpecification;
         $this->id = ULIDService::generate();
         $this->creator = $creator;
-        $this->name = $name;
+        $this->setName($name);
         $this->description = $description;
         $this->questions = new ArrayCollection();
         $this->difficultyLevel = $difficultyLevel;
@@ -100,9 +105,9 @@ class Test
         return $this->description;
     }
 
-    public function isPublished(): bool
+    public function published(): bool
     {
-        return $this->isPublished;
+        return $this->published;
     }
 
     public function getDifficultyLevel(): DifficultyLevel
@@ -123,5 +128,11 @@ class Test
     public function setSkillId(?string $skillId): void
     {
         $this->skillId = $skillId;
+    }
+
+    private function setName(string $name): void
+    {
+        $this->name = $name;
+        $this->testSpecification->uniqueTestNameSpecification->satisfy($this);
     }
 }

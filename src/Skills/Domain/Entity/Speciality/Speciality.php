@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Skills\Domain\Entity\Speciality;
 
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Service\ULIDService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use App\Skills\Domain\Entity\Skill\Skill;
 use App\Skills\Domain\Specification\Speciality\SpecialitySpecification;
 use Doctrine\Common\Collections\ArrayCollection;
