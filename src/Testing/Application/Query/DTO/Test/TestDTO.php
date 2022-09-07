@@ -11,6 +11,7 @@ class TestDTO
 {
     public function __construct(
         public readonly string $id,
+        public readonly string $creatorId,
         public readonly string $name,
         public readonly string $description,
         public readonly string $difficultyLevel,
@@ -30,6 +31,7 @@ class TestDTO
 
         return new self(
             id: $test->getId(),
+            creatorId: $test->getCreator()->getId(),
             name: $test->getName(),
             description: $test->getDescription(),
             difficultyLevel: $test->getDifficultyLevel()->value,

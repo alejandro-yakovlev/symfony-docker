@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\TestingSession;
 
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use App\Testing\Domain\Entity\Test\AnswerOption;
 use App\Testing\Domain\Entity\Test\Question;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -25,7 +25,7 @@ class UserAnswer
 
     public function __construct(TestingSession $testingSession, Question $question)
     {
-        $this->id = ULIDService::generate();
+        $this->id = UlidService::generate();
         $this->testingSession = $testingSession;
         $this->question = $question;
         $this->answerOptions = new ArrayCollection();

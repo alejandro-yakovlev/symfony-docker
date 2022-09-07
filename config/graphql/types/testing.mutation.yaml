@@ -5,7 +5,7 @@ TestingMutations:
     fields:
 
       createTest:
-        type: "Test"
+        type: "TestingTest"
         description: "Создать тест."
         resolve: "@=mutation('createTest', args['name'], args['description'], args['difficultyLevel'], args['correctAnswersPercentage'], args['skillId'])"
         args:
@@ -14,8 +14,22 @@ TestingMutations:
           description:
             type: "String!"
           difficultyLevel:
-            type: "DifficultyLevelEnum!"
+            type: "TestingDifficultyLevel!"
           correctAnswersPercentage:
             type: "Int!"
           skillId:
             type: "String"
+
+      createQuestion:
+        type: "TestingQuestion"
+        description: "Создать вопрос теста."
+        resolve: "@=mutation('createQuestion', args['name'], args['description'], args['type'], args['testId'])"
+        args:
+          name:
+            type: "String!"
+          description:
+            type: "String!"
+          type:
+            type: "TestingQuestionType!"
+          testId:
+            type: "String!"

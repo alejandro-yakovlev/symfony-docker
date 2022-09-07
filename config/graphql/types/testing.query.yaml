@@ -5,7 +5,7 @@ TestingQueries:
     fields:
 
       findTestById:
-        type: "Test"
+        type: "TestingTest"
         description: "Найти тест по идентификатору."
         args:
           id:

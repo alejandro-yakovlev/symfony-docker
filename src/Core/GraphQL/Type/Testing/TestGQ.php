@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Core\GraphQL\Type\Testing;
 
 use App\Core\GraphQL\Type\Skills\SkillGQ;
+use App\Testing\Application\Query\DTO\Test\QuestionDTO;
 use App\Testing\Application\Query\DTO\Test\TestDTO;
 use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[
-    GQL\Type(name: 'Test'),
+    GQL\Type(name: 'TestingTest'),
     GQL\Description('Тест')
 ]
 class TestGQ
@@ -45,13 +46,19 @@ class TestGQ
     public bool $published;
 
     #[
+        GQL\Field(type: '[TestingQuestion]'),
+        GQL\Description('Вопросы')
+    ]
+    public array $questions = [];
+
+    #[
         GQL\Field,
         GQL\Description('Тестируемый навык')
     ]
     public ?SkillGQ $skill = null;
 
     #[
-        GQL\Field(type: 'DifficultyLevelEnum'),
+        GQL\Field(type: 'TestingDifficultyLevel'),
         GQL\Description('Уровень сложности теста')
     ]
     private string $difficultyLevel;
@@ -63,6 +70,7 @@ class TestGQ
         int $correctAnswersPercentage,
         bool $published,
         string $difficultyLevel,
+        array $questions
     ) {
         $this->id = $id;
         $this->name = $name;
@@ -70,17 +78,21 @@ class TestGQ
         $this->correctAnswersPercentage = $correctAnswersPercentage;
         $this->published = $published;
         $this->difficultyLevel = $difficultyLevel;
+        $this->questions = $questions;
     }
 
-    public static function fromDTO(TestDTO $dto): self
+    public static function fromDTO(TestDTO $testDTO): self
     {
+        $questions = array_map(fn (QuestionDTO $qDto) => QuestionGQ::fromDTO($qDto), $testDTO->questions);
+
         return new self(
-            id: $dto->id,
-            name: $dto->name,
-            description: $dto->description,
-            correctAnswersPercentage: $dto->correctAnswersPercentage,
-            published: $dto->isPublished,
-            difficultyLevel: $dto->difficultyLevel,
+            id: $testDTO->id,
+            name: $testDTO->name,
+            description: $testDTO->description,
+            correctAnswersPercentage: $testDTO->correctAnswersPercentage,
+            published: $testDTO->isPublished,
+            difficultyLevel: $testDTO->difficultyLevel,
+            questions: $questions,
         );
     }
 

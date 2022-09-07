@@ -6,7 +6,7 @@ namespace App\Skills\Domain\Entity\Speciality;
 
 use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use App\Skills\Domain\Entity\Skill\Skill;
 use App\Skills\Domain\Specification\Speciality\SpecialitySpecification;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -37,7 +37,7 @@ class Speciality
         string $name,
         SpecialitySpecification $specification,
     ) {
-        $this->id = ULIDService::generate();
+        $this->id = UlidService::generate();
         $this->creator = $creator;
         $this->name = $name;
         $this->skills = new ArrayCollection();

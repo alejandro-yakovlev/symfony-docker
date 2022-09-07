@@ -8,9 +8,9 @@
             <generator strategy="NONE"/>
         </id>
 
-        <field name="name" type="string" unique="true"/>
+        <field name="name" type="string"/>
         <field name="description" type="string"/>
-        <field name="positionNumber" type="integer"/>
+        <field name="positionNumber" type="integer" nullable="true"/>
         <field name="published" type="boolean"/>
         <field name="type"
                type="string"

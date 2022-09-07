@@ -6,7 +6,7 @@ namespace App\Testing\Domain\Entity\Test;
 
 use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use App\Testing\Domain\Specification\TestSpecification;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -63,7 +63,7 @@ class Test
         TestSpecification $testSpecification
     ) {
         $this->testSpecification = $testSpecification;
-        $this->id = ULIDService::generate();
+        $this->id = UlidService::generate();
         $this->creator = $creator;
         $this->setName($name);
         $this->description = $description;
@@ -122,6 +122,16 @@ class Test
 
     public function addQuestion(Question $question): void
     {
+        // Если позиция не установлена, ставим вопрос в конец списка
+        if (!$question->getPositionNumber()) {
+            $lastQuestionPositionNumber = array_reduce(
+                $this->questions->toArray(),
+                fn (int $maxPosition, Question $q) => max($maxPosition, $q->getPositionNumber()),
+                0
+            );
+            $question->setPositionNumber($lastQuestionPositionNumber + 1);
+        }
+
         $this->questions->add($question);
     }
 
@@ -134,5 +144,10 @@ class Test
     {
         $this->name = $name;
         $this->testSpecification->uniqueTestNameSpecification->satisfy($this);
+    }
+
+    public function getCreator(): GlobalUserId
+    {
+        return $this->creator;
     }
 }

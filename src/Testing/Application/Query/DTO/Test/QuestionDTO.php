@@ -11,9 +11,11 @@ class QuestionDTO
 {
     public function __construct(
         public readonly string $id,
+        public readonly string $name,
         public readonly string $description,
+        public readonly bool $published,
         public readonly string $type,
-        public readonly int $positionNumber,
+        public readonly ?int $positionNumber,
         public readonly array $answerOptions,
     ) {
     }
@@ -27,7 +29,9 @@ class QuestionDTO
 
         return new self(
             id: $question->getId(),
+            name: $question->getName(),
             description: $question->getDescription(),
+            published: $question->isPublished(),
             type: $question->getType()->value,
             positionNumber: $question->getPositionNumber(),
             answerOptions: $answerOptions,

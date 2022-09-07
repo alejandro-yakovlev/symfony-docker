@@ -7,10 +7,10 @@ namespace App\Core\GraphQL\Type\Testing;
 use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[
-    GQL\Enum(name: 'DifficultyLevelEnum'),
+    GQL\Enum(name: 'TestingDifficultyLevel'),
     GQL\Description('Уровень сложности теста')
 ]
-final class DifficultyLevelEnumGQ
+final class DifficultyLevelGQ
 {
     #[GQL\Description('Легкий')]
     public const EASY = 'easy';

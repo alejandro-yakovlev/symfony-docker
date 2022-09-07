@@ -30,7 +30,11 @@
         <field name="updatedAt" type="datetime_immutable" nullable="true"/>
         <field name="deletedAt" type="datetime_immutable" nullable="true"/>
 
-        <one-to-many field="questions" target-entity="App\Testing\Domain\Entity\Test\Question" mapped-by="test"/>
+        <one-to-many field="questions" target-entity="App\Testing\Domain\Entity\Test\Question" mapped-by="test">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 
 </doctrine-mapping>
