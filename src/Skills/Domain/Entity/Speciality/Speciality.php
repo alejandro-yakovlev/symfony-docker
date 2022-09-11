@@ -81,8 +81,28 @@ class Speciality
         return $this->id;
     }
 
+    public function getCreator(): GlobalUserId
+    {
+        return $this->creator;
+    }
+
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->isPublished;
+    }
+
+    public function getSkills(): Collection
+    {
+        return $this->skills;
+    }
+
+    public function getSpecification(): SpecialitySpecification
+    {
+        return $this->specification;
     }
 }

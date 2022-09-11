@@ -22,11 +22,11 @@ Query:
             type: "String!"
         resolve: "@=query('findSkillGroupById', args['id'])"
 
-      findSkillGroupsByName:
+      paginateSkillGroups:
         type: "[SkillGroup]"
-        description: "Найти группы навыков по названию."
+        description: "Постраничный список групп навыков."
         args:
-          name:
-            description: "Название"
-            type: "String!"
-        resolve: "@=query('findSkillGroupsByName', args['name'])"
+          input:
+            description: "Фильтр групп навыков"
+            type: "SkillGroupsFilter!"
+        resolve: "@=query('paginateSkillGroups', arguments({input: 'SkillGroupsFilter'}, args)[0], info)"

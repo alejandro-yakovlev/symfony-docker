@@ -15,7 +15,7 @@ class AnswerOptionDTO
     ) {
     }
 
-    public static function fromEntity(AnswerOption $answerOption)
+    public static function fromEntity(AnswerOption $answerOption): self
     {
         return new self(
             id: $answerOption->getId(),

@@ -55,13 +55,28 @@ class SkillConfirmation
         return $this->proofs;
     }
 
-    public function setLevel(Level $level): void
+    public function getId(): string
     {
-        $this->level = $level;
+        return $this->id;
+    }
+
+    public function getSpecialist(): Specialist
+    {
+        return $this->specialist;
+    }
+
+    public function getSkill(): Skill
+    {
+        return $this->skill;
     }
 
     public function getLevel(): Level
     {
         return $this->level;
+    }
+
+    public function setLevel(Level $level): void
+    {
+        $this->level = $level;
     }
 }

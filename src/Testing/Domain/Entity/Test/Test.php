@@ -150,4 +150,29 @@ class Test
     {
         return $this->creator;
     }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function getDeletedAt(): ?DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function getTestSpecification(): TestSpecification
+    {
+        return $this->testSpecification;
+    }
 }

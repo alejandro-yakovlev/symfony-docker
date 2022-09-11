@@ -39,8 +39,13 @@ class Specialist
         return $this->id;
     }
 
-    public function setUser(?GlobalUserId $user): void
+    public function getUser(): ?GlobalUserId
     {
-        $this->user = $user;
+        return $this->user;
+    }
+
+    public function getSpecialties(): Collection
+    {
+        return $this->specialties;
     }
 }

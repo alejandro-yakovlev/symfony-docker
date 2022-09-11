@@ -9,6 +9,9 @@ use App\Testing\Domain\Entity\Test\Question;
 
 class QuestionDTO
 {
+    /**
+     * @param AnswerOptionDTO[] $answerOptions
+     */
     public function __construct(
         public readonly string $id,
         public readonly string $name,
@@ -20,7 +23,7 @@ class QuestionDTO
     ) {
     }
 
-    public static function fromEntity(Question $question)
+    public static function fromEntity(Question $question): self
     {
         $answerOptions = array_map(
             fn (AnswerOption $a) => AnswerOptionDTO::fromEntity($a),

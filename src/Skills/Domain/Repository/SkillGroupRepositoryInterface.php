@@ -13,7 +13,7 @@ interface SkillGroupRepositoryInterface
     /**
      * @return SkillGroup[]
      */
-    public function findLikeName(string $name): array;
+    public function findByFilter(SkillGroupsFilter $filter): array;
 
     public function findOneById(string $id): ?SkillGroup;
 }

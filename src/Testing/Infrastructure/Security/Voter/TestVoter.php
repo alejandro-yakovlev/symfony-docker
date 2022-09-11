@@ -10,7 +10,7 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /**
- * Права доступа к тесту
+ * Права доступа к тесту.
  */
 class TestVoter extends Voter
 {
@@ -28,7 +28,8 @@ class TestVoter extends Voter
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
     {
         return match ($attribute) {
-            self::EDIT => $this->canEdit($subject)
+            self::EDIT => $this->canEdit($subject),
+            default => false
         };
     }
 

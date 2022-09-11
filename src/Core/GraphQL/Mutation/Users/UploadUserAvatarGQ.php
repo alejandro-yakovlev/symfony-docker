@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Mutation\Users;
 
-use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
-use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
+use App\Core\GraphQL\Mutation\AliasedMutation;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class UploadUserAvatarGQ implements MutationInterface, AliasedInterface
+class UploadUserAvatarGQ extends AliasedMutation
 {
     public function __invoke(UploadedFile $file): string
     {

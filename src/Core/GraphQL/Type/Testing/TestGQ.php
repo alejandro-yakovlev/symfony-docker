@@ -45,9 +45,12 @@ class TestGQ
     ]
     public bool $published;
 
+    /**
+     * @var QuestionGQ[]
+     */
     #[
         GQL\Field(type: '[TestingQuestion]'),
-        GQL\Description('Вопросы')
+        GQL\Description('Вопросы'),
     ]
     public array $questions = [];
 
@@ -61,8 +64,11 @@ class TestGQ
         GQL\Field(type: 'TestingDifficultyLevel'),
         GQL\Description('Уровень сложности теста')
     ]
-    private string $difficultyLevel;
+    public string $difficultyLevel;
 
+    /**
+     * @param QuestionGQ[] $questions
+     */
     public function __construct(
         string $id,
         string $name,
@@ -96,6 +102,9 @@ class TestGQ
         );
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return get_object_vars($this);

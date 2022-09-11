@@ -4,11 +4,18 @@ namespace App\Skills\Infrastructure\Repository;
 
 use App\Skills\Domain\Entity\Speciality\Speciality;
 use App\Skills\Domain\Repository\SpecialityRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class SpecialityRepository implements SpecialityRepositoryInterface
+class SpecialityRepository extends ServiceEntityRepository implements SpecialityRepositoryInterface
 {
-    public function findOneByName(string $getName): ?Speciality
+    public function __construct(ManagerRegistry $registry)
     {
-        // TODO: Implement findByName() method.
+        parent::__construct($registry, Speciality::class);
+    }
+
+    public function findOneByName(string $name): ?Speciality
+    {
+        return $this->findOneBy(['name' => $name]);
     }
 }

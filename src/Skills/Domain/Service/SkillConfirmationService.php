@@ -2,6 +2,7 @@
 
 namespace App\Skills\Domain\Service;
 
+use App\Shared\Domain\Entity\ValueObject\GlobalUserId;
 use App\Skills\Domain\Entity\Specialist\Level;
 use App\Skills\Domain\Entity\Specialist\Proof;
 use App\Skills\Domain\Factory\SkillConfirmationFactory;
@@ -24,7 +25,7 @@ class SkillConfirmationService
 
     public function confirm(string $globalUserId, string $skillId, string $testId, int $correctAnswersPercentage): void
     {
-        $specialist = $this->specialistRepository->findOneByGlobalUserId($globalUserId);
+        $specialist = $this->specialistRepository->findOneByGlobalUserId(GlobalUserId::fromString($globalUserId));
         $skill = $this->skillRepository->findOneById($skillId);
         $level = $this->makeLevelFromCorrectAnswersPercentage($correctAnswersPercentage);
 

@@ -8,5 +8,5 @@ interface SkillConfirmationRepositoryInterface
 {
     public function findOneBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation;
 
-    public function add(?SkillConfirmation $skillConfirmation): void;
+    public function add(SkillConfirmation $skillConfirmation): void;
 }

@@ -26,7 +26,7 @@ class TestingSession extends Aggregate
 
     private Test $test;
 
-    private float $correctAnswersPercentage = 0;
+    private int $correctAnswersPercentage = 0;
 
     private ?bool $isPassedSuccessfully = null;
 
@@ -66,9 +66,8 @@ class TestingSession extends Aggregate
         }
 
         // Подсчитываем процент правильных ответов.
-        $this->correctAnswersPercentage = round(
-            $correctAnswersNumber / $this->test->getQuestions()->count() * 100,
-            2
+        $this->correctAnswersPercentage = (int) ceil(
+            $correctAnswersNumber / $this->test->getQuestions()->count() * 100
         );
 
         // Тест считается успешно пройденным если реальный процент правильных ответов
@@ -100,7 +99,7 @@ class TestingSession extends Aggregate
         }
     }
 
-    public function getCorrectAnswersPercentage(): float
+    public function getCorrectAnswersPercentage(): int
     {
         return $this->correctAnswersPercentage;
     }
@@ -113,5 +112,25 @@ class TestingSession extends Aggregate
     public function getUser(): GlobalUserId
     {
         return $this->user;
+    }
+
+    public function getIsPassedSuccessfully(): ?bool
+    {
+        return $this->isPassedSuccessfully;
+    }
+
+    public function getUserAnswers(): Collection
+    {
+        return $this->userAnswers;
+    }
+
+    public function getStartedAt(): DateTimeInterface
+    {
+        return $this->startedAt;
+    }
+
+    public function getCompletedAt(): ?DateTimeInterface
+    {
+        return $this->completedAt;
     }
 }

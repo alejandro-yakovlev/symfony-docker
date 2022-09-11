@@ -4,16 +4,15 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Mutation\Skills;
 
+use App\Core\GraphQL\Mutation\AliasedMutation;
 use App\Core\GraphQL\Type\Skills\SkillGroupGQ;
 use App\Shared\Application\Command\CommandBusInterface;
 use App\Shared\Application\Query\QueryBusInterface;
 use App\Skills\Application\Command\CreateSkillGroup\CreateSkillGroupCommand;
 use App\Skills\Application\DTO\SkillGroupDTO;
 use App\Skills\Application\Query\FindSkillGroupById\FindSkillGroupByIdQuery;
-use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
-use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 
-class CreateSkillGroupGQ implements MutationInterface, AliasedInterface
+class CreateSkillGroupGQ extends AliasedMutation
 {
     public function __construct(private QueryBusInterface $queryBus, private CommandBusInterface $commandBus)
     {

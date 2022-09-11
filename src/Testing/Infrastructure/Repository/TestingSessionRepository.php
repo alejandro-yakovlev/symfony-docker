@@ -4,11 +4,18 @@ namespace App\Testing\Infrastructure\Repository;
 
 use App\Testing\Domain\Entity\TestingSession\TestingSession;
 use App\Testing\Domain\Repository\TestingSessionRepositoryInterface;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Persistence\ManagerRegistry;
 
-class TestingSessionRepository implements TestingSessionRepositoryInterface
+class TestingSessionRepository extends ServiceEntityRepository implements TestingSessionRepositoryInterface
 {
+    public function __construct(ManagerRegistry $registry)
+    {
+        parent::__construct($registry, TestingSession::class);
+    }
+
     public function findById(string $id): ?TestingSession
     {
-        // TODO: Implement findById() method.
+        return $this->find($id);
     }
 }

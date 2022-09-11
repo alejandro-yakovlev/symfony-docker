@@ -4,6 +4,7 @@ namespace App\Skills\Infrastructure\Repository;
 
 use App\Skills\Domain\Entity\Skill\SkillGroup;
 use App\Skills\Domain\Repository\SkillGroupRepositoryInterface;
+use App\Skills\Domain\Repository\SkillGroupsFilter;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -33,11 +34,19 @@ class SkillGroupRepository extends ServiceEntityRepository implements SkillGroup
     /**
      * {@inheritDoc}
      */
-    public function findLikeName(string $name): array
+    public function findByFilter(SkillGroupsFilter $filter): array
     {
         $qb = $this->createQueryBuilder('sg');
-        $qb->where($qb->expr()->like('sg.name', ':name'))
-            ->setParameter('name', '%'.$name.'%');
+
+        if ($filter->name) {
+            $qb->where($qb->expr()->like('sg.name', ':name'))
+                ->setParameter('name', '%'.$filter->name.'%');
+        }
+
+        if ($filter->paginationInput) {
+            $qb->setMaxResults($filter->paginationInput->getLimit());
+            $qb->setFirstResult($filter->paginationInput->getOffset());
+        }
 
         return $qb->getQuery()->getResult();
     }

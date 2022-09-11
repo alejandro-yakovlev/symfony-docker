@@ -51,4 +51,19 @@ class UserAnswer
     {
         $this->answerOptions->add($answerOption);
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getTestingSession(): TestingSession
+    {
+        return $this->testingSession;
+    }
+
+    public function getAnswerOptions(): Collection
+    {
+        return $this->answerOptions;
+    }
 }

@@ -12,7 +12,7 @@ class FindTestingSessionQueryHandler implements QueryHandlerInterface
     {
     }
 
-    public function __invoke(FindTestingSessionQuery $query)
+    public function __invoke(FindTestingSessionQuery $query): ?TestingSessionDTO
     {
         $testingSession = $this->testingSessionRepository->findById($query->testingSessionId);
 

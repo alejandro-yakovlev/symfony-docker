@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Mutation\Testing;
 
+use App\Core\GraphQL\Mutation\AliasedMutation;
 use App\Core\GraphQL\Type\Testing\TestGQ;
 use App\Shared\Application\Command\CommandBusInterface;
 use App\Shared\Application\Query\QueryBusInterface;
@@ -11,10 +12,8 @@ use App\Shared\Domain\Security\UserFetcherInterface;
 use App\Testing\Application\Command\CreateTest\CreateTestCommand;
 use App\Testing\Application\Query\DTO\Test\TestDTO;
 use App\Testing\Application\Query\FindTestById\FindTestByIdQuery;
-use Overblog\GraphQLBundle\Definition\Resolver\AliasedInterface;
-use Overblog\GraphQLBundle\Definition\Resolver\MutationInterface;
 
-class CreateTestGQ implements MutationInterface, AliasedInterface
+class CreateTestGQ extends AliasedMutation
 {
     public function __construct(
         private QueryBusInterface $queryBus,

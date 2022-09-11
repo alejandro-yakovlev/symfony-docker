@@ -8,6 +8,8 @@
             <generator strategy="NONE"/>
         </id>
         <field name="name" type="string" unique="true"/>
+
+        <one-to-many field="skills" target-entity="App\Skills\Domain\Entity\Skill\Skill" mapped-by="skillGroup"/>
     </entity>
 
 </doctrine-mapping>

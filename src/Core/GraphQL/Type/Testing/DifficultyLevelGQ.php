@@ -20,8 +20,4 @@ final class DifficultyLevelGQ
 
     #[GQL\Description('Сложный')]
     public const HARD = 'hard';
-
-    public static function from(string $difficultyLevel)
-    {
-    }
 }
