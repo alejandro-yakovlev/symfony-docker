@@ -11,6 +11,7 @@ class SkillDTO
     public function __construct(
         public readonly string $id,
         public readonly string $name,
+        public readonly SkillGroupInfoDTO $skillGroup,
     ) {
     }
 
@@ -19,6 +20,7 @@ class SkillDTO
         return new self(
             id: $skill->getId(),
             name: $skill->getName(),
+            skillGroup: SkillGroupInfoDTO::fromEntity($skill->getSkillGroup()),
         );
     }
 }

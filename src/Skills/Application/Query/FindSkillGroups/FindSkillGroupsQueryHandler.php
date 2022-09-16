@@ -11,17 +11,17 @@ use App\Skills\Domain\Repository\SkillGroupRepositoryInterface;
 
 class FindSkillGroupsQueryHandler implements QueryHandlerInterface
 {
-    public function __construct(private readonly SkillGroupRepositoryInterface $skillGroupRepository)
-    {
+    public function __construct(
+        private readonly SkillGroupRepositoryInterface $skillGroupRepository
+    ) {
     }
 
-    /**
-     * @return SkillGroupDTO[]
-     */
-    public function __invoke(FindSkillGroupsQuery $query): array
+    public function __invoke(FindSkillGroupsQuery $query): FindSkillGroupsQueryResult
     {
         $skillGroups = $this->skillGroupRepository->findByFilter($query->input);
 
-        return array_map(fn (SkillGroup $dto) => SkillGroupDTO::fromEntity($dto), $skillGroups);
+        return new FindSkillGroupsQueryResult(
+            array_map(fn (SkillGroup $dto) => SkillGroupDTO::fromEntity($dto), $skillGroups)
+        );
     }
 }

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Core\GraphQL\Type\Skills;
+namespace App\Core\GraphQL\Type\Skills\SkillGroup;
 
-use App\Skills\Application\DTO\SkillDTO;
 use App\Skills\Application\DTO\SkillGroupDTO;
+use App\Skills\Application\DTO\SkillInfoDTO;
 use Overblog\GraphQLBundle\Annotation as GQL;
 
 #[
@@ -27,17 +27,20 @@ class SkillGroupGQ
     public readonly string $name;
 
     /**
-     * @var SkillGQ[]
+     * @var SkillInfoGQ[]
      */
     #[
-        GQL\Field(type: '[Skill]'),
+        GQL\Field(
+            type: '[SkillInfo]',
+            resolve: "@=query('skillsResolver', args.limit, info, context, value)"
+        ),
         GQL\Description('Навыки группы'),
         GQL\Arg(name: 'limit', type: 'Int!', default: 10)
     ]
-    public array $skills = [];
+    public array $skills;
 
     /**
-     * @param SkillGQ[] $skills
+     * @param SkillInfoGQ[] $skills
      */
     public function __construct(string $id, string $name, array $skills)
     {
@@ -48,12 +51,10 @@ class SkillGroupGQ
 
     public static function fromDTO(SkillGroupDTO $skillGroupDTO): self
     {
-        $skills = array_map(fn(SkillDTO $dto) => SkillGQ::fromDTO($dto), $skillGroupDTO->skills);
-
         return new self(
             id: $skillGroupDTO->id,
             name: $skillGroupDTO->name,
-            skills: $skills,
+            skills: array_map(fn (SkillInfoDTO $dto) => SkillInfoGQ::fromDTO($dto), $skillGroupDTO->skills),
         );
     }
 
@@ -65,21 +66,5 @@ class SkillGroupGQ
     public static function fromDTOCollection(array $dtos): array
     {
         return array_map(fn (SkillGroupDTO $dto) => self::fromDTO($dto), $dtos);
-    }
-
-    /**
-     * @return array<string, mixed>
-     */
-    public function toArray(): array
-    {
-        return get_object_vars($this);
-    }
-
-    /**
-     * @param SkillGQ[] $skills
-     */
-    public function setSkills(array $skills): void
-    {
-        $this->skills = $skills;
     }
 }

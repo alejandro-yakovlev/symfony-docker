@@ -5,24 +5,22 @@ declare(strict_types=1);
 namespace App\Core\GraphQL\Mutation\Skills;
 
 use App\Core\GraphQL\Mutation\AliasedMutation;
-use App\Core\GraphQL\Type\Skills\SkillGQ;
-use App\Shared\Application\Command\CommandBusInterface;
-use App\Shared\Application\Query\QueryBusInterface;
+use App\Core\GraphQL\Type\Skills\Skill\SkillGQ;
 use App\Skills\Application\Command\CreateSkill\CreateSkillCommand;
-use App\Skills\Application\DTO\SkillDTO;
-use App\Skills\Application\Query\FindSkillById\FindSkillByIdQuery;
+use App\Skills\Application\Query\FindSkill\FindSkillQuery;
+use App\Skills\Infrastructure\Api\Api;
 
 class CreateSkillQL extends AliasedMutation
 {
-    public function __construct(private QueryBusInterface $queryBus, private CommandBusInterface $commandBus)
-    {
+    public function __construct(
+        private readonly Api $skillsApi
+    ) {
     }
 
     public function __invoke(string $name, string $skillGroupId): array
     {
-        $skillId = $this->commandBus->execute(new CreateSkillCommand($name, $skillGroupId));
-        /** @var SkillDTO $skill */
-        $skill = $this->queryBus->execute(new FindSkillByIdQuery($skillId));
+        $skillId = $this->skillsApi->commandInteractor->createSkill(new CreateSkillCommand($name, $skillGroupId));
+        $skill = $this->skillsApi->queryInteractor->findSkill(new FindSkillQuery($skillId))->skill;
 
         return SkillGQ::fromDTO($skill)->toArray();
     }

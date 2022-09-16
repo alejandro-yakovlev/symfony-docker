@@ -4,23 +4,16 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Mutation\Testing;
 
+use App\Core\Adapter\TestingAdapter;
 use App\Core\GraphQL\Mutation\AliasedMutation;
 use App\Core\GraphQL\Type\Testing\QuestionGQ;
-use App\Shared\Application\Command\CommandBusInterface;
-use App\Shared\Application\Query\QueryBusInterface;
-use App\Shared\Infrastructure\Security\AuthChecker;
-use App\Testing\Application\Command\CreateQuestion\CreateQuestionCommand;
-use App\Testing\Application\Query\DTO\Test\QuestionDTO;
-use App\Testing\Application\Query\FindQuestionById\FindQuestionByIdQuery;
-use App\Testing\Application\Query\FindTestById\FindTestByIdQuery;
-use App\Testing\Infrastructure\Security\Voter\TestVoter;
+use GraphQL\Error\UserError;
+use InvalidArgumentException;
 
 class CreateQuestionGQ extends AliasedMutation
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private CommandBusInterface $commandBus,
-        private AuthChecker $authChecker,
+        private readonly TestingAdapter $testingAdapter,
     ) {
     }
 
@@ -29,17 +22,14 @@ class CreateQuestionGQ extends AliasedMutation
         string $description,
         string $type,
         string $testId,
-    ): array {
-        $test = $this->queryBus->execute(new FindTestByIdQuery($testId));
-        $this->authChecker->denyAccessUnlessGranted(TestVoter::EDIT, $test);
+    ): QuestionGQ {
+        try {
+            $question = $this->testingAdapter->createQuestion($name, $description, $type, $testId);
+        } catch (InvalidArgumentException $exception) {
+            throw new UserError($exception->getMessage(), 0, $exception);
+        }
 
-        $questionId = $this->commandBus->execute(
-            new CreateQuestionCommand($name, $description, $type, $testId)
-        );
-        /** @var QuestionDTO $question */
-        $question = $this->queryBus->execute(new FindQuestionByIdQuery($questionId));
-
-        return QuestionGQ::fromDTO($question)->toArray();
+        return $question;
     }
 
     public static function getAliases(): array

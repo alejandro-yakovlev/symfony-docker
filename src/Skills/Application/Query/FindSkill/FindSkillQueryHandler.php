@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace App\Skills\Application\Query\FindSkillById;
+namespace App\Skills\Application\Query\FindSkill;
 
 use App\Shared\Application\Query\QueryHandlerInterface;
 use App\Skills\Application\DTO\SkillDTO;
 use App\Skills\Domain\Repository\SkillRepositoryInterface;
 
-class FindSkillByIdQueryHandler implements QueryHandlerInterface
+class FindSkillQueryHandler implements QueryHandlerInterface
 {
     public function __construct(private readonly SkillRepositoryInterface $skillRepository)
     {
     }
 
-    public function __invoke(FindSkillByIdQuery $query): ?SkillDTO
+    public function __invoke(FindSkillQuery $query): FindSkillQueryResult
     {
         $skill = $this->skillRepository->findOneById($query->id);
 
         if (!$skill) {
-            return null;
+            return new FindSkillQueryResult(null);
         }
 
-        return SkillDTO::fromEntity($skill);
+        return new FindSkillQueryResult(SkillDTO::fromEntity($skill));
     }
 }

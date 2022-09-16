@@ -6,7 +6,7 @@ namespace App\Shared\Infrastructure\Security;
 
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
-class AuthChecker
+class PermissionChecker
 {
     public function __construct(private readonly AuthorizationCheckerInterface $authorizationChecker)
     {

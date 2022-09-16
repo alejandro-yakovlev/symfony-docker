@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace App\Core\GraphQL\Query\Skills;
 
 use App\Core\GraphQL\Query\AliasedQuery;
-use App\Core\GraphQL\Type\Skills\SkillGroupGQ;
+use App\Core\GraphQL\Type\Skills\SkillGroup\SkillGroupGQ;
 use App\Core\GraphQL\Type\Skills\SkillGroupsFilterGQ;
-use App\Shared\Application\Query\QueryBusInterface;
 use App\Shared\Domain\Repository\PaginationInput;
-use App\Skills\Application\DTO\SkillGroupDTO;
 use App\Skills\Application\Query\FindSkillGroups\FindSkillGroupsQuery;
 use App\Skills\Domain\Repository\SkillGroupsFilter;
+use App\Skills\Infrastructure\Api\Api;
 use GraphQL\Type\Definition\ResolveInfo;
 
 class PaginateSkillGroupsGQ extends AliasedQuery
 {
-    public function __construct(private QueryBusInterface $queryBus)
-    {
+    public function __construct(
+        private readonly Api $skillsApi
+    ) {
     }
 
     public function __invoke(SkillGroupsFilterGQ $filter, ResolveInfo $info): array
@@ -31,10 +31,9 @@ class PaginateSkillGroupsGQ extends AliasedQuery
             )
         );
 
-        /** @var SkillGroupDTO[] $skillGroups */
-        $skillGroups = $this->queryBus->execute($query);
+        $result = $this->skillsApi->queryInteractor->findSkillGroups($query);
 
-        return SkillGroupGQ::fromDTOCollection($skillGroups);
+        return SkillGroupGQ::fromDTOCollection($result->skillGroups);
     }
 
     public static function getAliases(): array

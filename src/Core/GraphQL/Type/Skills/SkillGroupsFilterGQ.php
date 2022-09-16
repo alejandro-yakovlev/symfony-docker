@@ -15,12 +15,4 @@ class SkillGroupsFilterGQ
 
     #[GQL\Field(type: 'PaginationInput')]
     public ?PaginationInputGQ $paginationInput;
-
-//    public static function fromArray(array $data): self
-//    {
-//        $obj = new self();
-//
-//        $obj->name = $data['name'] ?? null;
-//        $obj->paginationInput = $data['name'] ?? null;
-//    }
 }

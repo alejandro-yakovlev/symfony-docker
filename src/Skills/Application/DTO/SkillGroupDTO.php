@@ -18,12 +18,11 @@ class SkillGroupDTO
 
     public static function fromEntity(SkillGroup $skillGroup): self
     {
-        $skills = array_map(fn(Skill $skill) => SkillDTO::fromEntity($skill), $skillGroup->getSkills()->toArray());
-
         return new self(
             id: $skillGroup->getId(),
             name: $skillGroup->getName(),
-            skills: $skills,
+            skills: array_map(fn (Skill $skill) => SkillInfoDTO::fromEntity($skill),
+                $skillGroup->getSkills()->toArray()),
         );
     }
 

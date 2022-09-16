@@ -4,29 +4,26 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Query\Testing;
 
+use App\Core\Adapter\TestingAdapter;
 use App\Core\GraphQL\Query\AliasedQuery;
 use App\Core\GraphQL\Type\Testing\TestGQ;
-use App\Shared\Application\Query\QueryBusInterface;
-use App\Testing\Application\Query\DTO\Test\TestDTO;
-use App\Testing\Application\Query\FindTestById\FindTestByIdQuery;
 use Overblog\GraphQLBundle\Error\UserWarning;
 
 class FindTestByIdGQ extends AliasedQuery
 {
-    public function __construct(private QueryBusInterface $queryBus)
+    public function __construct(private readonly TestingAdapter $testingAdapter)
     {
     }
 
-    public function __invoke(string $id): array
+    public function __invoke(string $id): TestGQ
     {
-        /** @var TestDTO|null $test */
-        $test = $this->queryBus->execute(new FindTestByIdQuery($id));
+        $test = $this->testingAdapter->findTest($id);
 
         if (!$test) {
             throw new UserWarning('Тест не найден');
         }
 
-        return TestGQ::fromDTO($test)->toArray();
+        return $test;
     }
 
     public static function getAliases(): array

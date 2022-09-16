@@ -1,5 +1,11 @@
 parameters:
-    level: 6
+    level: 5
     checkGenericClassInNonGenericObjectType: false
     paths:
         - src
+
+services:
+    -
+        class: App\Core\PHPStan\QueryBusDynamicReturnTypeExtension
+        tags:
+            - phpstan.broker.dynamicMethodReturnTypeExtension

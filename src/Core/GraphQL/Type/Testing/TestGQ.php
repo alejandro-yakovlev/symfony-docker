@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Core\GraphQL\Type\Testing;
 
-use App\Core\GraphQL\Type\Skills\SkillGQ;
+use App\Core\GraphQL\Type\Skills\Skill\SkillGQ;
 use App\Testing\Application\Query\DTO\Test\QuestionDTO;
 use App\Testing\Application\Query\DTO\Test\TestDTO;
 use Overblog\GraphQLBundle\Annotation as GQL;
@@ -61,7 +61,7 @@ class TestGQ
     public ?SkillGQ $skill = null;
 
     #[
-        GQL\Field(type: 'TestingDifficultyLevel'),
+        GQL\Field(type: 'TestingDifficultyLevel!'),
         GQL\Description('Уровень сложности теста')
     ]
     public string $difficultyLevel;

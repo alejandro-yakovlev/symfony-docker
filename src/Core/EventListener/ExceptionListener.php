@@ -23,7 +23,7 @@ class ExceptionListener
             $response = new JsonResponse();
             $response->setContent($this->exceptionToJson($exception));
 
-            // HttpException содержит информацию о заголовках и статусе, испольузем это
+            // HttpException содержит информацию о заголовках и статусе, используем это
             if ($exception instanceof HttpExceptionInterface) {
                 $response->setStatusCode($exception->getStatusCode());
                 $response->headers->replace($exception->getHeaders());

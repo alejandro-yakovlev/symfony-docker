@@ -33,3 +33,15 @@ TestingMutations:
             type: "TestingQuestionType!"
           testId:
             type: "String!"
+
+      createAnswerOption:
+        type: "TestingAnswerOption"
+        description: "Создать вариант ответа на вопрос теста."
+        resolve: "@=mutation('createAnswerOption', args['questionId'], args['description'], args['isCorrect'])"
+        args:
+          questionId:
+            type: "String!"
+          description:
+            type: "String!"
+          isCorrect:
+            type: "Boolean!"

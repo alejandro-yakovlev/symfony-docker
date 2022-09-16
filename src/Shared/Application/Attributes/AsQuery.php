@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Shared\Application\Attributes;
@@ -7,8 +8,7 @@ namespace App\Shared\Application\Attributes;
 class AsQuery
 {
     public function __construct(
-        public string $handler
-    )
-    {
+        public string $result
+    ) {
     }
 }
