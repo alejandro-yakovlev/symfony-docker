@@ -17,7 +17,7 @@ class SkillGroupNameSpecification implements SpecificationInterface
     {
         AssertService::lengthBetween($skillGroup->getName(), 2, 100);
         AssertService::true(
-            empty($this->skillGroupRepository->findByName($skillGroup->getName())),
+            empty($this->skillGroupRepository->findOneByName($skillGroup->getName())),
             'Название группы должно быть уникальным'
         );
     }

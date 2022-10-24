@@ -16,7 +16,7 @@ class FindUserByEmailQueryHandler implements QueryHandlerInterface
 
     public function __invoke(FindUserByEmailQuery $query): UserDTO
     {
-        $user = $this->userRepository->findByEmail($query->email);
+        $user = $this->userRepository->findOneByEmail($query->email);
 
         if (!$user) {
             throw new \Exception('User not found');

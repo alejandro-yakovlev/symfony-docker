@@ -10,7 +10,7 @@ interface UserRepositoryInterface
 {
     public function add(User $user): void;
 
-    public function findByUlid(string $ulid): ?User;
+    public function findOneById(string $id): ?User;
 
-    public function findByEmail(string $email): ?User;
+    public function findOneByEmail(string $email): ?User;
 }

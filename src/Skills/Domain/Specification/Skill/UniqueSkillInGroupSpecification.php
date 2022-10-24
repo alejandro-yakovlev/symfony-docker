@@ -23,7 +23,7 @@ class UniqueSkillInGroupSpecification implements SpecificationInterface
             AssertService::notEq(
                 $skill->getSkillGroup(),
                 $foundSkill->getSkillGroup(),
-                'Навык с похожим названием уже имеется в группе'
+                'Навык с таким названием уже имеется в группе'
             );
         }
     }

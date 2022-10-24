@@ -1,0 +1,4 @@
+companies:
+    resource: ../../src/Companies/Infrastructure/API/REST/
+    type: annotation
+    prefix: '/company-context'

@@ -19,6 +19,11 @@ class Proof
         $this->testId = $testId;
     }
 
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
     public function getTestId(): string
     {
         return $this->testId;

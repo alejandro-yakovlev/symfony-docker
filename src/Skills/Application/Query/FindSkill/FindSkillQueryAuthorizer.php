@@ -1,0 +1,15 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Skills\Application\Query\FindSkill;
+
+use App\Auth\CQRSAuthorizer\Authorizer;
+
+class FindSkillQueryAuthorizer extends Authorizer
+{
+    public function permitted($command): bool
+    {
+        return false;
+    }
+}

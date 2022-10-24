@@ -22,12 +22,12 @@ class UserRepository extends ServiceEntityRepository implements UserRepositoryIn
         $this->_em->flush();
     }
 
-    public function findByUlid(string $ulid): ?User
+    public function findOneById(string $id): ?User
     {
-        return $this->find($ulid);
+        return $this->find($id);
     }
 
-    public function findByEmail(string $email): ?User
+    public function findOneByEmail(string $email): ?User
     {
         return $this->findOneBy(['email' => $email]);
     }

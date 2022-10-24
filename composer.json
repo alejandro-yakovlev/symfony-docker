@@ -1,4 +1,6 @@
 {
+    "name": "alejandro-yakovlev/symfony-docker",
+    "description": "Dockerise Symfony Application",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -12,6 +14,8 @@
         "doctrine/orm": "^2.11",
         "gesdinet/jwt-refresh-token-bundle": "1.0.*",
         "lexik/jwt-authentication-bundle": "^2.14",
+        "nelmio/api-doc-bundle": "^4.10",
+        "symfony/asset": "6.0.*",
         "symfony/console": "6.0.*",
         "symfony/dotenv": "6.0.*",
         "symfony/flex": "^2",
@@ -19,7 +23,10 @@
         "symfony/messenger": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
+        "symfony/serializer": "6.0.*",
+        "symfony/twig-bundle": "6.0.*",
         "symfony/uid": "6.0.*",
+        "symfony/validator": "6.0.*",
         "symfony/yaml": "6.0.*"
     },
     "require-dev": {

@@ -12,12 +12,36 @@ parameters:
       collectors:
         - type: directory
           regex: /src/Users/.*
-    - name: Recipes
+    - name: Skills
       collectors:
         - type: directory
-          regex: /src/Recipes/.*
+          regex: /src/Skills/.*
+    - name: Testing
+      collectors:
+        - type: directory
+          regex: /src/Testing/.*
+    - name: Companies
+      collectors:
+        - type: directory
+          regex: /src/Companies/.*
+    - name: Auth
+      collectors:
+        - type: directory
+          regex: /src/Auth/.*
   ruleset:
     Users:
       - Shared
-    Recipes:
+      - Auth
+    Skills:
       - Shared
+      - Auth
+    Testing:
+      - Shared
+      - Auth
+    Companies:
+      - Shared
+      - Auth
+    Auth:
+      - Shared
+    Shared:
+      - Auth

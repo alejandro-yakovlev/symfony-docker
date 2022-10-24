@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Skills\Domain\Entity\Skill;
 
+use App\Shared\Domain\Entity\Aggregate;
 use App\Shared\Domain\Service\AssertService;
 use App\Shared\Domain\Service\UlidService;
 use App\Skills\Domain\Specification\Skill\SkillSpecification;
@@ -11,7 +12,7 @@ use App\Skills\Domain\Specification\Skill\SkillSpecification;
 /**
  * Навык.
  */
-class Skill
+class Skill extends Aggregate
 {
     /**
      * Минимальная длина названия навыка.
@@ -36,13 +37,13 @@ class Skill
         SkillGroup $skillGroup,
         SkillSpecification $skillSpecification
     ) {
-        $this->id = UlidService::generate();
-        $this->setName($name);
-        $this->setSkillGroup($skillGroup);
         $this->skillSpecification = $skillSpecification;
+        $this->id = UlidService::generate();
+
+        $this->setNameAndGroup($name, $skillGroup);
     }
 
-    public function setName(string $name): void
+    public function setNameAndGroup(string $name, SkillGroup $skillGroup): void
     {
         AssertService::lengthBetween(
             $name,
@@ -52,14 +53,8 @@ class Skill
         );
 
         $this->name = $name;
-        $this->skillSpecification
-            ->uniqueSkillInGroupSpecification
-            ->satisfy($this);
-    }
-
-    public function setSkillGroup(SkillGroup $skillGroup): void
-    {
         $this->skillGroup = $skillGroup;
+
         $this->skillSpecification
             ->uniqueSkillInGroupSpecification
             ->satisfy($this);

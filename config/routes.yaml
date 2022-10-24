@@ -12,6 +12,6 @@ gesdinet_jwt_refresh_token:
 api_login_check:
     path: /api/auth/token/login
 
-users:
-    resource: ../src/Users/Infrastructure/Controller/
-    type: annotation
+blog:
+    resource: './routes/modules.yaml'
+    prefix: /api/v1/

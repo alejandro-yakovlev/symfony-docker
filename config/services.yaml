@@ -29,21 +29,35 @@ services:
             tags:
                 - { name: messenger.message_handler, bus: event.bus }
 
-    App\Users\Infrastructure\Controller\:
-        resource: '../src/Users/Infrastructure/Controller/'
-        tags: [ 'controller.service_arguments' ]
+        # Auth
+        App\Auth\CQRSAuthorizer\Authorizer:
+            public: true
 
+    # Auth
+    App\Auth\CQRSAuthorizer\AuthorizationMiddleware:
+        arguments:
+            - '@service_container'
 
     App\Shared\Infrastructure\Doctrine\DomainEventSubscriber:
-      tags: [ { name: 'doctrine.event_subscriber' } ]
-      arguments:
-          $containerBag: '@service_container'
+        tags: [ { name: 'doctrine.event_subscriber' } ]
+        arguments:
+            $containerBag: '@service_container'
 
 
     App\Core\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
 
-#    App\Core\EventListener\BuiltInEventsSubscriber:
-#        tags:
-#            - { name: kernel.event_subscriber }
+    # PUBLIC SERVICES
+
+    App\*\Domain\Specification\:
+        namespace: App\
+        public: true
+        resource: '../src/*/Domain/Specification'
+        exclude: '../src/Shared/*'
+
+    App\*\Domain\Factory\:
+        namespace: App\
+        public: true
+        resource: '../src/*/Domain/Factory'
+        exclude: '../src/Shared/*'

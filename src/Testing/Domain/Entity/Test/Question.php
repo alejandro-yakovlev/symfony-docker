@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Webmozart\Assert\Assert;
@@ -18,11 +18,13 @@ class Question
 
     private Test $test;
 
+    private string $name;
+
     private string $description;
 
-    private int $positionNumber;
+    private ?int $positionNumber = null;
 
-    private bool $isPublished = false;
+    private bool $published = false;
 
     private QuestionType $type;
 
@@ -31,14 +33,14 @@ class Question
      */
     private Collection $answerOptions;
 
-    public function __construct(Test $testing, string $description, int $positionNumber, QuestionType $type)
+    public function __construct(Test $test, string $name, string $description, QuestionType $type)
     {
-        $this->id = ULIDService::generate();
-        $this->test = $testing;
+        $this->id = UlidService::generate();
+        $this->test = $test;
         $this->description = $description;
-        $this->positionNumber = $positionNumber;
         $this->type = $type;
         $this->answerOptions = new ArrayCollection();
+        $this->name = $name;
     }
 
     public function getId(): string
@@ -63,5 +65,40 @@ class Question
         }
 
         $this->answerOptions->add($answerOption);
+    }
+
+    public function getTest(): Test
+    {
+        return $this->test;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function getPositionNumber(): ?int
+    {
+        return $this->positionNumber;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function getType(): QuestionType
+    {
+        return $this->type;
+    }
+
+    public function setPositionNumber(?int $positionNumber): void
+    {
+        $this->positionNumber = $positionNumber;
     }
 }

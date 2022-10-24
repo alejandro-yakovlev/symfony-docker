@@ -29,6 +29,10 @@ security:
             stateless: true
             jwt: ~
 
+    access_decision_manager:
+        strategy: unanimous
+        allow_if_all_abstain: false
+
     access_control:
         - { path: ^/api/auth/token/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/auth/token/refresh, roles: PUBLIC_ACCESS }

@@ -12,6 +12,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Event\PostFlushEventArgs;
 use Doctrine\ORM\Events;
 use ReflectionClass;
+use ReflectionNamedType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 final class DomainEventSubscriber implements EventSubscriber
@@ -67,21 +68,23 @@ final class DomainEventSubscriber implements EventSubscriber
 
     public function postLoad(LifecycleEventArgs $args): void
     {
-        $entity = $args->getEntity();
+        $entity = $args->getObject();
 
         $reflect = new ReflectionClass($entity);
 
         foreach ($reflect->getProperties() as $property) {
             $type = $property->getType();
 
-            if (is_null($type) || $type->isBuiltin() || $property->isInitialized($entity)) {
+            if (is_null($type) || $property->isInitialized($entity)) {
                 continue;
             }
 
-            // initialize specifications
-            $interfaces = class_implements($property->getType()->getName());
-            if (isset($interfaces[SpecificationInterface::class])) {
-                $property->setValue($entity, $this->container->get($property->getType()->getName()));
+            if ($type instanceof ReflectionNamedType && !$type->isBuiltin()) {
+                // initialize specifications
+                $interfaces = class_implements($type->getName());
+                if (isset($interfaces[SpecificationInterface::class])) {
+                    $property->setValue($entity, $this->container->get($type->getName()));
+                }
             }
         }
     }

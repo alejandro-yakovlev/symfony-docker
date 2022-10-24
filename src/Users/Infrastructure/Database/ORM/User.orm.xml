@@ -8,6 +8,11 @@
             <generator strategy="NONE"/>
         </id>
         <field name="email" type="string" unique="true"/>
+        <field name="confirmed" type="boolean">
+            <options>
+                <option name="default">false</option>
+            </options>
+        </field>
         <field name="password" type="string" nullable="true"/>
     </entity>
 

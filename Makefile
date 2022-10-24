@@ -9,17 +9,22 @@ DOCKER_COMPOSE_PHP_FPM_EXEC = ${DOCKER_COMPOSE} exec -u www-data php-fpm
 # Docker compose
 ##################
 
-dc_build:
+build:
 	${DOCKER_COMPOSE} build
 
-dc_start:
+start:
 	${DOCKER_COMPOSE} start
 
-dc_stop:
+stop:
 	${DOCKER_COMPOSE} stop
 
-dc_up:
+up:
 	${DOCKER_COMPOSE} up -d --remove-orphans
+
+down:
+	${DOCKER_COMPOSE} down
+
+restart: stop start
 
 dc_ps:
 	${DOCKER_COMPOSE} ps
@@ -40,8 +45,8 @@ dc_restart:
 
 app_bash:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
-php:
-	${DOCKER_COMPOSE} exec -u www-data php-fpm bash
+php: app_bash
+
 test:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/phpunit
 jwt:
@@ -56,8 +61,12 @@ cache:
 
 db_migrate:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:migrate --no-interaction
+migrate: db_migrate
+
 db_diff:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:diff --no-interaction
+diff: db_diff
+
 db_drop:
 	docker-compose -f ./docker/docker-compose.yml exec -u www-data php-fpm bin/console doctrine:schema:drop --force
 
@@ -67,7 +76,8 @@ db_drop:
 ##################
 
 phpstan:
-	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/phpstan analyse src tests -c phpstan.neon
+	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/phpstan analyse -c phpstan.neon; \
+ 	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/phpstan clear-result-cache
 
 deptrac:
 	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/deptrac analyze deptrac-layers.yaml
@@ -75,6 +85,10 @@ deptrac:
 
 cs_fix:
 	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/php-cs-fixer fix
+linter: cs_fix
 
 cs_fix_diff:
 	${DOCKER_COMPOSE_PHP_FPM_EXEC} vendor/bin/php-cs-fixer fix --dry-run --diff
+
+composer_validate:
+	${DOCKER_COMPOSE_PHP_FPM_EXEC} composer validate

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
+use App\Shared\Domain\Entity\ValueObject\UserUlid;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\ULIDService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
+use App\Shared\Domain\Service\UlidService;
+use App\Testing\Domain\Specification\TestSpecification;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,7 +19,7 @@ class Test
     /**
      * Создатель теста.
      */
-    private GlobalUserId $creator;
+    private UserUlid $creator;
 
     private string $name;
 
@@ -29,12 +30,12 @@ class Test
      */
     private int $correctAnswersPercentage = 0;
 
-    private bool $isPublished = false;
+    private bool $published = false;
 
     /**
      * Навык, который тестирует тест.
      */
-    private string $skillId;
+    private ?string $skillId = null;
 
     /**
      * Уровень сложности.
@@ -52,23 +53,23 @@ class Test
 
     private ?DateTimeImmutable $deletedAt = null;
 
-    private string $testId;
+    private TestSpecification $testSpecification;
 
     public function __construct(
-        GlobalUserId $creator,
+        UserUlid $creator,
         string $name,
         string $description,
         DifficultyLevel $difficultyLevel,
-        string $testId,
+        TestSpecification $testSpecification
     ) {
-        $this->id = ULIDService::generate();
+        $this->testSpecification = $testSpecification;
+        $this->id = UlidService::generate();
         $this->creator = $creator;
-        $this->name = $name;
+        $this->setName($name);
         $this->description = $description;
         $this->questions = new ArrayCollection();
         $this->difficultyLevel = $difficultyLevel;
         $this->createdAt = new DateTimeImmutable();
-        $this->testId = $testId;
     }
 
     public function setCorrectAnswersPercentage(int $correctAnswersPercentage): self
@@ -94,6 +95,26 @@ class Test
         return $this->skillId;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function published(): bool
+    {
+        return $this->published;
+    }
+
+    public function getDifficultyLevel(): DifficultyLevel
+    {
+        return $this->difficultyLevel;
+    }
+
     public function getQuestions(): Collection
     {
         return $this->questions;
@@ -101,6 +122,57 @@ class Test
 
     public function addQuestion(Question $question): void
     {
+        // Если позиция не установлена, ставим вопрос в конец списка
+        if (!$question->getPositionNumber()) {
+            $lastQuestionPositionNumber = array_reduce(
+                $this->questions->toArray(),
+                fn (int $maxPosition, Question $q) => max($maxPosition, $q->getPositionNumber()),
+                0
+            );
+            $question->setPositionNumber($lastQuestionPositionNumber + 1);
+        }
+
         $this->questions->add($question);
+    }
+
+    public function setSkillId(?string $skillId): void
+    {
+        $this->skillId = $skillId;
+    }
+
+    private function setName(string $name): void
+    {
+        $this->name = $name;
+        $this->testSpecification->uniqueTestNameSpecification->satisfy($this);
+    }
+
+    public function getCreator(): UserUlid
+    {
+        return $this->creator;
+    }
+
+    public function isPublished(): bool
+    {
+        return $this->published;
+    }
+
+    public function getCreatedAt(): DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function getDeletedAt(): ?DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function getTestSpecification(): TestSpecification
+    {
+        return $this->testSpecification;
     }
 }

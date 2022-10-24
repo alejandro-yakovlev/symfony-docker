@@ -17,7 +17,7 @@ class TestingSessionCompletedEventHandler implements EventHandlerInterface
     ) {
     }
 
-    public function __invoke(TestingSessionCompletedEvent $event)
+    public function __invoke(TestingSessionCompletedEvent $event): string
     {
         /** @var TestingSession $testingSession */
         $testingSession = $this->queryBus->execute(new FindTestingSessionQuery($event->testingSessionId));
@@ -28,5 +28,7 @@ class TestingSessionCompletedEventHandler implements EventHandlerInterface
             $testingSession->getTest()->getId(),
             $testingSession->getCorrectAnswersPercentage()
         );
+
+        return $testingSession->getId();
     }
 }

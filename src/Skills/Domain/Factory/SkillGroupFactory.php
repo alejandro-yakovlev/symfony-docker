@@ -3,7 +3,7 @@
 namespace App\Skills\Domain\Factory;
 
 use App\Skills\Domain\Entity\Skill\SkillGroup;
-use App\Skills\Domain\Specification\SkillGroupNameSpecification;
+use App\Skills\Domain\Specification\Skill\SkillGroupNameSpecification;
 
 class SkillGroupFactory
 {

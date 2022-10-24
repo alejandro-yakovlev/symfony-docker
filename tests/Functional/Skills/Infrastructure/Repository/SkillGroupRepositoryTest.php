@@ -40,7 +40,7 @@ class SkillGroupRepositoryTest extends WebTestCase
         $this->skillGroupRepository->add($skillGroup);
 
         // assert
-        $existingSkillGroup = $this->skillGroupRepository->findByName($name);
+        $existingSkillGroup = $this->skillGroupRepository->findOneByName($name);
         $this->assertEquals($existingSkillGroup->getId(), $skillGroup->getId());
     }
 

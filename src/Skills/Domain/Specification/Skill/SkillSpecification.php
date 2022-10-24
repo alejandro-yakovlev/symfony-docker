@@ -2,7 +2,9 @@
 
 namespace App\Skills\Domain\Specification\Skill;
 
-class SkillSpecification
+use App\Shared\Domain\Specification\SpecificationInterface;
+
+class SkillSpecification implements SpecificationInterface
 {
     public function __construct(public readonly UniqueSkillInGroupSpecification $uniqueSkillInGroupSpecification)
     {

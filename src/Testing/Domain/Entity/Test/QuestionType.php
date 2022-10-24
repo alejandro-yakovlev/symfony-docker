@@ -13,6 +13,7 @@ enum QuestionType: string
      * Один ответ из списка.
      */
     case MULTIPLE_CHOICE = 'multiple_choice';
+
     /*
      * Несколько ответов из списка.
      */

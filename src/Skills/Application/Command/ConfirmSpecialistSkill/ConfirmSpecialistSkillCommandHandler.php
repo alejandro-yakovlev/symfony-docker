@@ -14,6 +14,6 @@ class ConfirmSpecialistSkillCommandHandler implements CommandHandlerInterface
 
     public function __invoke(ConfirmSpecialistSkillCommand $command): void
     {
-        $this->skillConfirmationService->confirm($command->globalUserId, $command->skillId, $command->testId, $command->correctAnswersPercentage);
+        $this->skillConfirmationService->confirm($command->userId, $command->skillId, $command->testId, $command->correctAnswersPercentage);
     }
 }

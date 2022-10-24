@@ -8,5 +8,12 @@ interface SkillGroupRepositoryInterface
 {
     public function add(SkillGroup $entity): void;
 
-    public function findByName(string $name): ?SkillGroup;
+    public function findOneByName(string $name): ?SkillGroup;
+
+    /**
+     * @return SkillGroup[]
+     */
+    public function findByFilter(SkillGroupsFilter $filter): array;
+
+    public function findOneById(string $id): ?SkillGroup;
 }

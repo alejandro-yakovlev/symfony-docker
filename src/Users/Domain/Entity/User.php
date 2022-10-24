@@ -4,14 +4,15 @@ declare(strict_types=1);
 
 namespace App\Users\Domain\Entity;
 
-use App\Shared\Domain\Security\AuthUserInterface;
+use App\Auth\UserInterface;
 use App\Shared\Domain\Service\UlidService;
 use App\Users\Domain\Service\UserPasswordHasherInterface;
 
-class User implements AuthUserInterface
+class User implements UserInterface
 {
     private string $id;
     private string $email;
+    private bool $confirmed = false;
     private ?string $password = null;
 
     public function __construct(string $email)
@@ -58,8 +59,15 @@ class User implements AuthUserInterface
     ): void {
         if (is_null($password)) {
             $this->password = null;
+
+            return;
         }
 
         $this->password = $passwordHasher->hash($this, $password);
+    }
+
+    public function isConfirmed(): bool
+    {
+        return $this->confirmed;
     }
 }

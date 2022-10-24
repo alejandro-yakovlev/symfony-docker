@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+    <embeddable name="App\Companies\Domain\Entity\Employee\Contact">
+        <field name="firstname" type="string"/>
+        <field name="lastname" type="string"/>
+        <field name="email" type="string"/>
+    </embeddable>
+</doctrine-mapping>

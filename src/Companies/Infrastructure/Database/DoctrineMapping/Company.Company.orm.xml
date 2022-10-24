@@ -1,0 +1,37 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Companies\Domain\Entity\Company\Company" table="companies_company">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="name" type="string"/>
+        <field name="createdAt" type="datetime_immutable"/>
+
+        <embedded name="owner"
+                  class="App\Shared\Domain\Entity\ValueObject\UserUlid"
+                  column-prefix="owner_"
+        />
+
+        <embedded name="contactPerson"
+                  class="App\Companies\Domain\Entity\Company\ContactPerson"
+                  column-prefix="contact_person_"
+        />
+
+        <one-to-many field="employees"
+                     target-entity="App\Companies\Domain\Entity\Employee\Employee"
+                     mapped-by="company">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <unique-constraints>
+            <unique-constraint fields="name,owner.id"/>
+        </unique-constraints>
+    </entity>
+
+</doctrine-mapping>
