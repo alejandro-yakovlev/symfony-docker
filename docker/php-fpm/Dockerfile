@@ -2,6 +2,7 @@ FROM php:8.1.0-fpm-alpine
 
 # Install packages
 RUN apk add --no-cache curl git build-base zlib-dev oniguruma-dev autoconf bash
+RUN apk add --update linux-headers
 
 # Xdebug
 ARG INSTALL_XDEBUG=false
