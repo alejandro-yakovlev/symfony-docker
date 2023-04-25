@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Webmozart\Assert\Assert;
@@ -33,7 +33,7 @@ class Question
 
     public function __construct(Test $testing, string $description, int $positionNumber, QuestionType $type)
     {
-        $this->id = ULIDService::generate();
+        $this->id = UlidService::generate();
         $this->test = $testing;
         $this->description = $description;
         $this->positionNumber = $positionNumber;

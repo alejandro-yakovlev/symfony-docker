@@ -6,12 +6,9 @@ namespace App\Testing\Domain\Entity\TestingSession;
 
 use App\Shared\Domain\Entity\Aggregate;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\ULIDService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
+use App\Shared\Domain\Service\UlidService;
 use App\Testing\Domain\Entity\Test\Test;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
-use DateTimeImmutable;
-use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -22,7 +19,7 @@ class TestingSession extends Aggregate
 {
     private string $id;
 
-    private GlobalUserId $user;
+    private string $userId;
 
     private Test $test;
 
@@ -35,14 +32,14 @@ class TestingSession extends Aggregate
      */
     private Collection $userAnswers;
 
-    private DateTimeInterface $startedAt;
+    private \DateTimeInterface $startedAt;
 
-    private ?DateTimeInterface $completedAt = null;
+    private ?\DateTimeInterface $completedAt = null;
 
-    public function __construct(Test $test, GlobalUserId $user)
+    public function __construct(Test $test, string $userId)
     {
-        $this->id = ULIDService::generate();
-        $this->user = $user;
+        $this->id = UlidService::generate();
+        $this->userId = $userId;
         $this->test = $test;
         $this->startedAt = new \DateTimeImmutable();
         $this->userAnswers = new ArrayCollection();
@@ -55,7 +52,7 @@ class TestingSession extends Aggregate
     {
         AssertService::null($this->completedAt, 'Тест уже завершен.');
 
-        $this->completedAt = new DateTimeImmutable();
+        $this->completedAt = new \DateTimeImmutable();
 
         // Количество правильных ответов.
         $correctAnswersNumber = 0;
@@ -110,8 +107,8 @@ class TestingSession extends Aggregate
         return $this->test;
     }
 
-    public function getUser(): GlobalUserId
+    public function getUserId(): string
     {
-        return $this->user;
+        return $this->userId;
     }
 }

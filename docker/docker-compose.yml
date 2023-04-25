@@ -15,17 +15,8 @@ services:
     volumes:
       - /var/www/vendor/
       - ./../:/var/www/
-
-  nginx:
-    container_name: nginx
-    build:
-      context: ./nginx
     ports:
-      - ${NGINX_HOST_HTTP_PORT}:80
-    volumes:
-      - ..:/var/www:rw
-    depends_on:
-      - php-fpm
+      - ${NGINX_HOST_HTTP_PORT}:8080
 
   postgres:
     container_name: postgres

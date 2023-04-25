@@ -33,7 +33,7 @@ class TestingSessionCompletionTest extends WebTestCase
         );
 
         $user = new GlobalUserId($testedUserId);
-        $testingSession = new TestingSession($test, $user);
+        $testingSession = new TestingSession($test, $user->getId());
 
         foreach ($testData['questions'] as $questionData) {
             $question = new Question($test, $questionData['description'], 1, $questionData['type']);

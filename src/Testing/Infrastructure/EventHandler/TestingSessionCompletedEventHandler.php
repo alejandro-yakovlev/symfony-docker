@@ -24,9 +24,9 @@ class TestingSessionCompletedEventHandler implements EventHandlerInterface
 
         $this->skillsAdapter->confirmSpecialistSkill(
             $testingSession->getTest()->getSkillId(),
-            $testingSession->getUser()->getId(),
+            $testingSession->getUserId(),
             $testingSession->getTest()->getId(),
-            $testingSession->getCorrectAnswersPercentage()
+            (int) $testingSession->getCorrectAnswersPercentage()
         );
     }
 }

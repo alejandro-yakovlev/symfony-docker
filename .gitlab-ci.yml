@@ -1,0 +1,131 @@
+# Этапы (позволяют группировать задания)
+stages:
+  - build
+  - analyze
+  - test
+  - deploy
+
+# Службы, которые будут использованы внутри заданий
+services:
+  - postgres:14.7-alpine
+
+# Переменные, которые будут использованы внутри заданий
+variables:
+  CONTAINER_IMAGE_PATH: $CI_REGISTRY/$CI_PROJECT_PATH:$CI_COMMIT_SHORT_SHA #see https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+  POSTGRES_DB: symfony_db
+  POSTGRES_USER: symfony_user
+  POSTGRES_PASSWORD: symfony_pass
+  POSTGRES_HOST_AUTH_METHOD: trust
+  DB_HOST: postgres
+  DB_NAME: symfony_db
+  DB_USER: symfony_user
+  DB_PASSWORD: symfony_pass
+  DB_PORT: 5432
+
+# Задание сборки docker-образа для тестового окружения
+build-test:
+  stage: build
+  environment: test
+  image: docker:20.10
+  services:
+    - docker:20.10-dind
+  script:
+    # Авторизация в GitLab Container Registry для хранения docker-образа
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build --no-cache -f ./docker/php-fpm/Dockerfile --build-arg BUILD_MODE=dev --tag $CONTAINER_IMAGE_PATH .
+    - docker push $CONTAINER_IMAGE_PATH
+
+# Задание сборки docker-образа для продакшн-окружения
+build-prod:
+  stage: build
+  image: docker:20.10
+  environment: production
+  # Задание будет запущено только в ветках main и staging
+  only:
+    - staging
+    - main
+  services:
+    - docker:20.10-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_JOB_TOKEN $CI_REGISTRY
+    - docker build -f ./docker/php-fpm/Dockerfile --build-arg BUILD_MODE=production --tag $CONTAINER_IMAGE_PATH .
+    - docker push $CONTAINER_IMAGE_PATH
+
+# Задания для запуска статического анализа кода
+cs-fixer:
+  stage: analyze
+  image: $CONTAINER_IMAGE_PATH
+  script:
+    - cd /var/www/
+    - php ./vendor/bin/php-cs-fixer fix --dry-run --diff
+
+phpstan:
+  stage: analyze
+  image: $CONTAINER_IMAGE_PATH
+  script:
+    - cd /var/www/
+    - vendor/bin/phpstan analyse -c phpstan.neon
+
+deptrac:
+  stage: analyze
+  image: $CONTAINER_IMAGE_PATH
+  script:
+    - cd /var/www/
+    - vendor/bin/deptrac analyze deptrac-layers.yaml
+    - vendor/bin/deptrac analyze deptrac-modules.yaml
+
+composer-validate:
+  stage: analyze
+  image: $CONTAINER_IMAGE_PATH
+  script:
+    - cd /var/www/
+    - composer validate --no-check-all --strict
+
+schema-validate:
+  needs:
+    - composer-validate
+  stage: analyze
+  image: $CONTAINER_IMAGE_PATH
+  script:
+    - cd /var/www/
+    - php bin/console doctrine:schema:create
+    - php bin/console doctrine:schema:validate
+
+# Задание для запуска тестов
+phpunit:
+  stage: test
+  image: $CONTAINER_IMAGE_PATH
+  environment: test
+  script:
+    - cd /var/www/
+    - php bin/console doctrine:schema:create
+    - php bin/phpunit
+
+# Задание деплоя на staging сервер
+deploy-staging:
+  stage: deploy
+  image: ictu/sshpass
+  environment: staging
+  only:
+    - staging
+  before_script:
+    - export SSHPASS=$SERVER_PASSWORD
+  script:
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "echo '$PROD_ENVS' > /var/www/symfony/.env.local"
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "docker pull $CONTAINER_IMAGE_PATH"
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "docker stop symfony || true"
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "docker rm -v symfony || true"
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "docker run --env-file /var/www/symfony/.env.local --name symfony -d --restart always -p 880:8080 $CONTAINER_IMAGE_PATH"
+
+# Задание деплоя на production сервер
+deploy-prod:
+  stage: deploy
+  image: ictu/sshpass
+  environment: production
+  only:
+    - main
+  when: manual
+  before_script:
+    - export SSHPASS=$SERVER_PASSWORD
+  script:
+    - sshpass -e ssh -o StrictHostKeyChecking=no -p$SERVER_PORT $SERVER_USERNAME@$SERVER_HOST "kubectl set image deployment/my-deployment my-container=$CONTAINER_IMAGE_PATH && kubectl rollout status deployment/my-deployment"

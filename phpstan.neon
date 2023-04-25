@@ -1,3 +1,11 @@
 parameters:
-    level: 6
+    level: 5
     checkGenericClassInNonGenericObjectType: false
+    paths:
+        - src
+    ignoreErrors:
+            -
+              message: '#Property [a-zA-Z0-9\\_]+::\$(.*) is never (written|read), only (written|read).#'
+              paths:
+#               - src/*/Domain/Aggregate/*
+               - src/*/Domain/Entity/*

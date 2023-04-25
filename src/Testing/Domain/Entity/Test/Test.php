@@ -5,9 +5,8 @@ declare(strict_types=1);
 namespace App\Testing\Domain\Entity\Test;
 
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\ULIDService;
+use App\Shared\Domain\Service\UlidService;
 use App\Shared\Domain\ValueObject\GlobalUserId;
-use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -46,11 +45,11 @@ class Test
      */
     private Collection $questions;
 
-    private DateTimeImmutable $createdAt;
+    private \DateTimeImmutable $createdAt;
 
-    private ?DateTimeImmutable $updatedAt = null;
+    private ?\DateTimeImmutable $updatedAt = null;
 
-    private ?DateTimeImmutable $deletedAt = null;
+    private ?\DateTimeImmutable $deletedAt = null;
 
     private string $testId;
 
@@ -61,13 +60,13 @@ class Test
         DifficultyLevel $difficultyLevel,
         string $testId,
     ) {
-        $this->id = ULIDService::generate();
+        $this->id = UlidService::generate();
         $this->creator = $creator;
         $this->name = $name;
         $this->description = $description;
         $this->questions = new ArrayCollection();
         $this->difficultyLevel = $difficultyLevel;
-        $this->createdAt = new DateTimeImmutable();
+        $this->createdAt = new \DateTimeImmutable();
         $this->testId = $testId;
     }
 

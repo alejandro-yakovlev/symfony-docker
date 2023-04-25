@@ -48,3 +48,7 @@
 
 ### DDD
 - [X] [Strategic & Tactical design]()
+
+### CI/CD
+- [X] [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/yaml/)
+- [X] [GitHub Actions](https://docs.github.com/en/actions/quickstart)

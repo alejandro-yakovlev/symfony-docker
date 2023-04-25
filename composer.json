@@ -1,4 +1,6 @@
 {
+    "name": "alejandro-yakovlev/symfony-docker",
+    "description": "Dockerise Symfony Application (Symfony 6 + Clean Architecture+ DDD+ CQRS + Docker + Xdebug + PHPUnit + Doctrine ORM + JWT Auth + Static analysis)",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -20,7 +22,8 @@
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
         "symfony/uid": "6.0.*",
-        "symfony/yaml": "6.0.*"
+        "symfony/yaml": "6.0.*",
+        "webmozart/assert": "^1.11"
     },
     "require-dev": {
         "dama/doctrine-test-bundle": "^6.7",
