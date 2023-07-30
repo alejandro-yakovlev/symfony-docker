@@ -27,8 +27,11 @@ jobs:
       DB_PORT: 5432
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
-        run: composer install
+
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.2"
 
       - name: Run doctrine schema create
         run: php bin/console doctrine:schema:create
