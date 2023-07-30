@@ -16,6 +16,7 @@ jobs:
           POSTGRES_DB: symfony_db
           POSTGRES_USER: symfony_user
           POSTGRES_PASSWORD: symfony_pass
+
     env:
       POSTGRES_DB: symfony
       POSTGRES_USER: symfony
