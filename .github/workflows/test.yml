@@ -25,6 +25,7 @@ jobs:
       DB_USER: symfony_user
       DB_PASSWORD: symfony_pass
       DB_PORT: 5432
+
     steps:
       - uses: actions/checkout@v2
 
