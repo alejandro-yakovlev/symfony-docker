@@ -6,23 +6,45 @@ namespace App\Shared\Infrastructure\Security;
 
 use App\Shared\Domain\Security\AuthUserInterface;
 use App\Shared\Domain\Security\UserFetcherInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 
-class UserFetcher implements UserFetcherInterface
+readonly class UserFetcher implements UserFetcherInterface
 {
-    public function __construct(private readonly Security $security)
+    public function __construct(private Security $security)
     {
     }
 
-    public function getAuthUser(): AuthUserInterface
+    public function requiredUser(): AuthUserInterface
     {
-        /** @var AuthUserInterface $user */
+        /** @var AuthUserInterface|null $user */
         $user = $this->security->getUser();
 
-        Assert::notNull($user, 'Current user not found check security access list');
+        if (is_null($user)) {
+            throw new AccessDeniedException('Access Denied.');
+        }
+
         Assert::isInstanceOf($user, AuthUserInterface::class, sprintf('Invalid user type %s', \get_class($user)));
 
         return $user;
+    }
+
+    public function nullableUser(): ?AuthUserInterface
+    {
+        /** @var AuthUserInterface|null $user */
+        $user = $this->security->getUser();
+
+        return $user;
+    }
+
+    public function requiredUserId(): string
+    {
+        return $this->requiredUser()->getId();
+    }
+
+    public function nullableUserId(): ?string
+    {
+        return $this->nullableUser()?->getId();
     }
 }

@@ -1,6 +1,5 @@
 doctrine:
     dbal:
-#        url: '%env(resolve:DATABASE_URL)%'
         driver: pdo_pgsql
         dbname: '%env(DB_NAME)%'
         host: '%env(DB_HOST)%'
@@ -25,8 +24,8 @@ doctrine:
             Skills:
                 is_bundle: false
                 type: xml
-                dir: '%kernel.project_dir%/src/Skills/Infrastructure/Database/ORM'
-                prefix: 'App\Skills\Domain\Entity'
+                dir: '%kernel.project_dir%/src/Skills/Infrastructure/Database/ORM/Aggregate'
+                prefix: 'App\Skills\Domain\Aggregate'
                 alias: Skills
 
 #when@test:

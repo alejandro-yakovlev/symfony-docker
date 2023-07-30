@@ -4,9 +4,8 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
+use App\Shared\Domain\Aggregate\Id;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\UlidService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
@@ -17,7 +16,7 @@ class Test
     /**
      * Создатель теста.
      */
-    private GlobalUserId $creator;
+    private string $creatorId;
 
     private string $name;
 
@@ -54,14 +53,14 @@ class Test
     private string $testId;
 
     public function __construct(
-        GlobalUserId $creator,
+        string $creatorId,
         string $name,
         string $description,
         DifficultyLevel $difficultyLevel,
         string $testId,
     ) {
-        $this->id = UlidService::generate();
-        $this->creator = $creator;
+        $this->id = Id::makeUlid();
+        $this->creatorId = $creatorId;
         $this->name = $name;
         $this->description = $description;
         $this->questions = new ArrayCollection();

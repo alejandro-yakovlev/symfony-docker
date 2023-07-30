@@ -2,9 +2,6 @@
 
 namespace App\Company\Domain\Entity\Company;
 
-use JetBrains\PhpStorm\Immutable;
-
-#[Immutable]
 class ContactPerson
 {
     public function __construct(

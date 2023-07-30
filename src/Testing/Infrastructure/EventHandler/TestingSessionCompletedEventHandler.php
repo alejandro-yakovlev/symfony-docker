@@ -2,18 +2,18 @@
 
 namespace App\Testing\Infrastructure\EventHandler;
 
+use App\Shared\Application\Event\EventHandlerInterface;
 use App\Shared\Application\Query\QueryBusInterface;
-use App\Shared\Domain\Event\EventHandlerInterface;
 use App\Testing\Application\Query\FindTestingSession\FindTestingSessionQuery;
 use App\Testing\Domain\Entity\TestingSession\TestingSession;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
 use App\Testing\Infrastructure\Adapter\SkillsAdapter;
 
-class TestingSessionCompletedEventHandler implements EventHandlerInterface
+readonly class TestingSessionCompletedEventHandler implements EventHandlerInterface
 {
     public function __construct(
-        private readonly QueryBusInterface $queryBus,
-        private readonly SkillsAdapter $skillsAdapter
+        private QueryBusInterface $queryBus,
+        private SkillsAdapter $skillsAdapter
     ) {
     }
 

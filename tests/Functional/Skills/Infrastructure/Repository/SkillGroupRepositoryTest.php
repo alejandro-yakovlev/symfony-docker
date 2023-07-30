@@ -2,13 +2,13 @@
 
 namespace App\Tests\Functional\Skills\Infrastructure\Repository;
 
+use App\Shared\Domain\Aggregate\Id;
+use App\Shared\Domain\Service\UlidService;
 use App\Skills\Domain\Factory\SkillGroupFactory;
 use App\Skills\Domain\Repository\SkillGroupRepositoryInterface;
 use App\Tests\Tools\DITools;
 use App\Tests\Tools\FakerTools;
 use Faker\Generator;
-use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
-use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Webmozart\Assert\InvalidArgumentException;
 
@@ -19,7 +19,6 @@ class SkillGroupRepositoryTest extends WebTestCase
 
     private SkillGroupRepositoryInterface $skillGroupRepository;
     private Generator $faker;
-    private AbstractDatabaseTool $databaseTool;
     private SkillGroupFactory $skillGroupFactory;
 
     public function setUp(): void
@@ -28,7 +27,6 @@ class SkillGroupRepositoryTest extends WebTestCase
         $this->skillGroupRepository = $this->getService(SkillGroupRepositoryInterface::class);
         $this->skillGroupFactory = $this->getService(SkillGroupFactory::class);
         $this->faker = $this->getFaker();
-        $this->databaseTool = static::getContainer()->get(DatabaseToolCollection::class)->get();
     }
 
     public function test_skill_group_created_successfully(): void
@@ -36,11 +34,11 @@ class SkillGroupRepositoryTest extends WebTestCase
         $name = $this->faker->name();
 
         // act
-        $skillGroup = $this->skillGroupFactory->create($name);
+        $skillGroup = $this->skillGroupFactory->create($name, Id::makeUlid());
         $this->skillGroupRepository->add($skillGroup);
 
         // assert
-        $existingSkillGroup = $this->skillGroupRepository->findByName($name);
+        $existingSkillGroup = $this->skillGroupRepository->findOneByName($name);
         $this->assertEquals($existingSkillGroup->getId(), $skillGroup->getId());
     }
 
@@ -49,10 +47,10 @@ class SkillGroupRepositoryTest extends WebTestCase
         $name = $this->faker->name();
 
         // act
-        $skillGroup = $this->skillGroupFactory->create($name);
+        $skillGroup = $this->skillGroupFactory->create($name, UlidService::generate());
         $this->skillGroupRepository->add($skillGroup);
 
         $this->expectException(InvalidArgumentException::class);
-        $this->skillGroupFactory->create($name);
+        $this->skillGroupFactory->create($name, UlidService::generate());
     }
 }

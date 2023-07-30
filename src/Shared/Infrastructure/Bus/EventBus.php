@@ -13,13 +13,13 @@ class EventBus implements EventBusInterface
 {
     use HandleTrait;
 
-    public function __construct(MessageBusInterface $queryBus)
+    public function __construct(MessageBusInterface $eventBus)
     {
-        $this->messageBus = $queryBus;
+        $this->messageBus = $eventBus;
     }
 
-    public function execute(EventInterface $event): mixed
+    public function execute(EventInterface $event): void
     {
-        return $this->handle($event);
+        $this->handle($event);
     }
 }

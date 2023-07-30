@@ -3,7 +3,6 @@
 namespace App\Tests\Functional\Testing\Domain\Entity\TestingSession;
 
 use App\Shared\Domain\Service\UlidService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
 use App\Testing\Domain\Entity\Test\AnswerOption;
 use App\Testing\Domain\Entity\Test\DifficultyLevel;
 use App\Testing\Domain\Entity\Test\Question;
@@ -27,13 +26,11 @@ class TestingSessionCompletionTest extends WebTestCase
         $creatorId = UlidService::generate();
         $testedUserId = UlidService::generate();
 
-        $creator = new GlobalUserId($creatorId);
         $test = new Test(
-            $creator, $testData['name'], $testData['description'], DifficultyLevel::EASY, UlidService::generate()
+            $creatorId, $testData['name'], $testData['description'], DifficultyLevel::EASY, UlidService::generate()
         );
 
-        $user = new GlobalUserId($testedUserId);
-        $testingSession = new TestingSession($test, $user->getId());
+        $testingSession = new TestingSession($test, $testedUserId);
 
         foreach ($testData['questions'] as $questionData) {
             $question = new Question($test, $questionData['description'], 1, $questionData['type']);

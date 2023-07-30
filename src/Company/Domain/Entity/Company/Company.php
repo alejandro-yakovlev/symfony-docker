@@ -2,7 +2,7 @@
 
 namespace App\Company\Domain\Entity\Company;
 
-use App\Shared\Domain\Service\UlidService;
+use App\Shared\Domain\Aggregate\Id;
 use App\Shared\Domain\ValueObject\GlobalUserId;
 
 class Company
@@ -17,7 +17,7 @@ class Company
 
     public function __construct(GlobalUserId $owner, ContactPerson $contactPerson, string $name)
     {
-        $this->id = UlidService::generate();
+        $this->id = Id::makeUlid();
         $this->owner = $owner;
         $this->contactPerson = $contactPerson;
         $this->name = $name;

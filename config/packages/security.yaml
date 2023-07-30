@@ -11,16 +11,16 @@ security:
                 property: email
     firewalls:
         login:
-            pattern: ^/api/auth/token/login
+            pattern: ^/api/auth/v1/token
             stateless: true
             json_login:
                 username_path: email
-                check_path: /api/auth/token/login
+                check_path: /api/auth/v1/token
                 success_handler: lexik_jwt_authentication.handler.authentication_success
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
         api_token_refresh:
-            pattern: ^/api/auth/token/refresh
+            pattern: ^/api/auth/v1/refresh-token
             stateless: true
             refresh_jwt: ~
 
@@ -30,10 +30,12 @@ security:
             jwt: ~
 
     access_control:
-        - { path: ^/api/auth/token/login, roles: PUBLIC_ACCESS }
-        - { path: ^/api/auth/token/refresh, roles: PUBLIC_ACCESS }
-        - { path: ^/api/users/me,       roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api/auth/v1/token, roles: PUBLIC_ACCESS }
+        - { path: ^/api/auth/v1/refresh-token, roles: PUBLIC_ACCESS }
+        - { path: ^/api/(.*)/v1/private,       roles: IS_AUTHENTICATED_FULLY }
 
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
 when@test:
     security:
         password_hashers:

@@ -71,8 +71,8 @@ deptrac:
   image: $CONTAINER_IMAGE_PATH
   script:
     - cd /var/www/
-    - vendor/bin/deptrac analyze deptrac-layers.yaml
-    - vendor/bin/deptrac analyze deptrac-modules.yaml
+    - vendor/bin/deptrac analyze --config-file=deptrac-layers.yaml
+    - vendor/bin/deptrac analyze --config-file=deptrac-modules.yaml
 
 composer-validate:
   stage: analyze

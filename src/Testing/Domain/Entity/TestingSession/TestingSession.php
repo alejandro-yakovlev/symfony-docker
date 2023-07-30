@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\TestingSession;
 
-use App\Shared\Domain\Entity\Aggregate;
+use App\Shared\Domain\Aggregate\Aggregate;
+use App\Shared\Domain\Aggregate\Id;
 use App\Shared\Domain\Service\AssertService;
-use App\Shared\Domain\Service\UlidService;
 use App\Testing\Domain\Entity\Test\Test;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -38,7 +38,7 @@ class TestingSession extends Aggregate
 
     public function __construct(Test $test, string $userId)
     {
-        $this->id = UlidService::generate();
+        $this->id = Id::makeUlid();
         $this->userId = $userId;
         $this->test = $test;
         $this->startedAt = new \DateTimeImmutable();

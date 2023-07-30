@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Testing\Domain\Entity\Test;
 
-use App\Shared\Domain\Service\UlidService;
+use App\Shared\Domain\Aggregate\Id;
 
 /**
  * Вариант ответа на вопрос.
@@ -24,7 +24,7 @@ class AnswerOption
 
     public function __construct(Question $question, string $description, bool $isCorrect)
     {
-        $this->id = UlidService::generate();
+        $this->id = Id::makeUlid();
         $this->question = $question;
         $this->description = $description;
         $this->isCorrect = $isCorrect;

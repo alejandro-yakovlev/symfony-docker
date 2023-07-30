@@ -2,9 +2,9 @@
 
 namespace App\Skills\Domain\Factory;
 
-use App\Skills\Domain\Entity\Skill\Skill;
-use App\Skills\Domain\Entity\Specialist\SkillConfirmation;
-use App\Skills\Domain\Entity\Specialist\Specialist;
+use App\Skills\Domain\Aggregate\Skill\Skill;
+use App\Skills\Domain\Aggregate\Specialist\SkillConfirmation;
+use App\Skills\Domain\Aggregate\Specialist\Specialist;
 
 class SkillConfirmationFactory
 {

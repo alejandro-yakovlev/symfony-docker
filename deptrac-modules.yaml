@@ -3,15 +3,16 @@ parameters:
     - ./src
   exclude_files:
     - '#.*\/src\/.*\/Infrastructure\/Adapter\/.*#'
+    - '#.*\/src\/.*\/Infrastructure\/Api\/.*#'
   layers:
     - name: Shared
       collectors:
         - type: directory
           regex: /src/Shared/.*
-    - name: Users
+    - name: Company
       collectors:
         - type: directory
-          regex: /src/Users/.*
+          regex: /src/Company/.*
     - name: Skills
       collectors:
         - type: directory
@@ -20,28 +21,16 @@ parameters:
       collectors:
         - type: directory
           regex: /src/Testing/.*
-    - name: Companies
+    - name: Users
       collectors:
         - type: directory
-          regex: /src/Companies/.*
-    - name: Auth
-      collectors:
-        - type: directory
-          regex: /src/Auth/.*
+          regex: /src/Users/.*
   ruleset:
-    Users:
+    Company:
       - Shared
-      - Auth
     Skills:
       - Shared
-      - Auth
     Testing:
       - Shared
-      - Auth
-    Companies:
+    Users:
       - Shared
-      - Auth
-    Auth:
-      - Shared
-    Shared:
-      - Auth

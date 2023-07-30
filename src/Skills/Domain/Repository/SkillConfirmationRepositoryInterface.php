@@ -2,11 +2,11 @@
 
 namespace App\Skills\Domain\Repository;
 
-use App\Skills\Domain\Entity\Specialist\SkillConfirmation;
+use App\Skills\Domain\Aggregate\Specialist\SkillConfirmation;
 
 interface SkillConfirmationRepositoryInterface
 {
-    public function findBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation;
+    public function findOneBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation;
 
-    public function add(?SkillConfirmation $skillConfirmation): void;
+    public function add(SkillConfirmation $skillConfirmation): void;
 }

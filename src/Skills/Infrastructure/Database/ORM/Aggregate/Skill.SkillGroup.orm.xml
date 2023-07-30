@@ -1,0 +1,26 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Skills\Domain\Aggregate\Skill\SkillGroup" table="skills_skill_group">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="name" type="string" unique="true"/>
+        <field name="description" type="string">
+            <options>
+                <option name="default"/>
+            </options>
+        </field>
+        <field name="ownerId" type="string" length="26"/>
+
+        <one-to-many field="skills" target-entity="App\Skills\Domain\Aggregate\Skill\Skill" mapped-by="skillGroup"/>
+
+        <unique-constraints>
+            <unique-constraint columns="owner_id,name"/>
+        </unique-constraints>
+    </entity>
+
+</doctrine-mapping>

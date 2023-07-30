@@ -38,8 +38,8 @@ jobs:
 
       - name: Run deptrac
         run: |
-          vendor/bin/deptrac analyze deptrac-layers.yaml
-          vendor/bin/deptrac analyze deptrac-modules.yaml
+          vendor/bin/deptrac analyze --config-file=deptrac-layers.yaml
+          vendor/bin/deptrac analyze --config-file=deptrac-modules.yaml
 
       - name: Run phpstan
         run: vendor/bin/phpstan analyse -c phpstan.neon

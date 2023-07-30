@@ -3,9 +3,10 @@ parameters:
     checkGenericClassInNonGenericObjectType: false
     paths:
         - src
+        - tests
     ignoreErrors:
             -
               message: '#Property [a-zA-Z0-9\\_]+::\$(.*) is never (written|read), only (written|read).#'
               paths:
-#               - src/*/Domain/Aggregate/*
+               - src/*/Domain/Aggregate/*
                - src/*/Domain/Entity/*

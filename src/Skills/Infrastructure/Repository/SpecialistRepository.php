@@ -2,7 +2,7 @@
 
 namespace App\Skills\Infrastructure\Repository;
 
-use App\Skills\Domain\Entity\Specialist\Specialist;
+use App\Skills\Domain\Aggregate\Specialist\Specialist;
 use App\Skills\Domain\Repository\SpecialistRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,14 +14,14 @@ class SpecialistRepository extends ServiceEntityRepository implements Specialist
         parent::__construct($registry, Specialist::class);
     }
 
-    public function findByGlobalUserId(string $globalUserId): ?Specialist
+    public function findOneByUser(string $userId): ?Specialist
     {
-        return $this->findOneBy(['globalUserId' => $globalUserId]);
+        return $this->findOneBy(['userId' => $userId]);
     }
 
     public function add(Specialist $specialist): void
     {
-        $this->getEntityManager()->persist($specialist);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($specialist);
+        $this->_em->flush();
     }
 }

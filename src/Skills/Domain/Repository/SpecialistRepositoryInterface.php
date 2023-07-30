@@ -2,11 +2,11 @@
 
 namespace App\Skills\Domain\Repository;
 
-use App\Skills\Domain\Entity\Specialist\Specialist;
+use App\Skills\Domain\Aggregate\Specialist\Specialist;
 
 interface SpecialistRepositoryInterface
 {
-    public function findByGlobalUserId(string $globalUserId): ?Specialist;
+    public function findOneByUser(string $userId): ?Specialist;
 
     public function add(Specialist $specialist): void;
 }
