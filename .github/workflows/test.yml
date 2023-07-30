@@ -83,7 +83,13 @@ jobs:
       DB_PORT: 5432
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
         run: composer install
 
       - name: Run doctrine schema create
