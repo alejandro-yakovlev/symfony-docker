@@ -52,3 +52,5 @@
 ### CI/CD
 - [X] [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/yaml/)
 - [X] [GitHub Actions](https://docs.github.com/en/actions/quickstart)
+
+Документация [в разработке](docs/index.md).
