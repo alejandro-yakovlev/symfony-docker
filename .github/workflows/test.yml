@@ -37,17 +37,25 @@ jobs:
 
       - name: Run doctrine schema create
         run: php bin/console doctrine:schema:create
+        with:
+          php_version: "8.2"
 
       - name: Run php-cs-fixer
         run: php ./vendor/bin/php-cs-fixer fix --dry-run --diff
+        with:
+          php_version: "8.2"
 
       - name: Run deptrac
         run: |
           vendor/bin/deptrac analyze --config-file=deptrac-layers.yaml
           vendor/bin/deptrac analyze --config-file=deptrac-modules.yaml
+        with:
+          php_version: "8.2"
 
       - name: Run phpstan
         run: vendor/bin/phpstan analyse -c phpstan.neon
+        with:
+          php_version: "8.2"
 
       - name: Run composer validate
         run: composer validate --no-check-all --strict
