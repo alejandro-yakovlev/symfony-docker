@@ -2,7 +2,7 @@
 
 namespace App\Skills\Domain\Repository;
 
-use App\Skills\Domain\Aggregate\Specialist\SkillConfirmation;
+use App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation;
 
 interface SkillConfirmationRepositoryInterface
 {

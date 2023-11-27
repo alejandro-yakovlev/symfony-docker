@@ -1,0 +1,19 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Testing\Domain\Aggregate\TestingSession\UserAnswer" table="testing_user_answer">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <many-to-one field="testingSession" target-entity="App\Testing\Domain\Aggregate\TestingSession\TestingSession"/>
+        <many-to-one field="question" target-entity="App\Testing\Domain\Aggregate\Test\Question"/>
+        <field name="answeredOptions" type="array">
+            <options>
+                <option name="default">[]</option>
+            </options>
+        </field>
+    </entity>
+
+</doctrine-mapping>

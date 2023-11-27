@@ -9,10 +9,6 @@ parameters:
       collectors:
         - type: directory
           regex: /src/Shared/.*
-    - name: Company
-      collectors:
-        - type: directory
-          regex: /src/Company/.*
     - name: Skills
       collectors:
         - type: directory
@@ -26,8 +22,6 @@ parameters:
         - type: directory
           regex: /src/Users/.*
   ruleset:
-    Company:
-      - Shared
     Skills:
       - Shared
     Testing:

@@ -47,6 +47,7 @@ readonly class SkillAccessControl
         $skill = $this->skillFetcher->getRequiredSkill($skillId);
         $speciality = $this->specialityFetcher->getRequiredSpeciality($specialityId);
 
+        // Пользователь может добавить навык в специальность, если он является владельцем навыка и специальности
         return $skill->isOwnedBy($userId) && $speciality->isOwnedBy($userId);
     }
 

@@ -3,7 +3,7 @@
 namespace App\Skills\Domain\Factory;
 
 use App\Skills\Domain\Aggregate\Skill\Skill;
-use App\Skills\Domain\Aggregate\Specialist\SkillConfirmation;
+use App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation;
 use App\Skills\Domain\Aggregate\Specialist\Specialist;
 
 class SkillConfirmationFactory

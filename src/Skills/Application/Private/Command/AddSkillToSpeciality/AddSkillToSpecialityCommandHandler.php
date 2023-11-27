@@ -8,19 +8,12 @@ use App\Shared\Application\Command\CommandHandlerInterface;
 use App\Shared\Domain\Security\UserFetcherInterface;
 use App\Shared\Domain\Service\AssertService;
 use App\Skills\Application\Shared\Service\AccessControl\SkillAccessControl;
-use App\Skills\Domain\Aggregate\Speciality\Level;
-use App\Skills\Domain\Aggregate\Speciality\SpecialitySkill;
-use App\Skills\Domain\Repository\SpecialitySkillRepositoryInterface;
-use App\Skills\Domain\Service\SkillFetcher;
-use App\Skills\Domain\Service\SpecialityFetcher;
-use Webmozart\Assert\Assert;
+use App\Skills\Domain\Service\SpecialitySkillOrganizer;
 
 readonly class AddSkillToSpecialityCommandHandler implements CommandHandlerInterface
 {
     public function __construct(
-        private SkillFetcher $skillFetcher,
-        private SpecialityFetcher $specialityFetcher,
-        private SpecialitySkillRepositoryInterface $specialitySkillRepository,
+        private SpecialitySkillOrganizer $specialitySkillOrganizer,
         private SkillAccessControl $skillAccessControl,
         private UserFetcherInterface $userFetcher,
     ) {
@@ -38,15 +31,11 @@ readonly class AddSkillToSpecialityCommandHandler implements CommandHandlerInter
             'Запрещено'
         );
 
-        $skill = $this->skillFetcher->getRequiredSkill($command->skillId);
-        $speciality = $this->specialityFetcher->getRequiredSpeciality($command->specialityId);
-
-        $existingSpecialitySkill = $this->specialitySkillRepository
-            ->findOneBySpecialityAndSkill($speciality->getId(), $skill->getId());
-        Assert::null($existingSpecialitySkill, 'Навык уже добавлен');
-
-        $specialitySkill = new SpecialitySkill($speciality, $skill, Level::from($command->level));
-        $this->specialitySkillRepository->add($specialitySkill);
+        $specialitySkill = $this->specialitySkillOrganizer->addSkillToSpeciality(
+            $command->skillId,
+            $command->specialityId,
+            $command->level
+        );
 
         return new AddSkillToSpecialityCommandResult($specialitySkill->getId());
     }

@@ -2,31 +2,32 @@
 
 namespace App\Testing\Infrastructure\EventHandler;
 
-use App\Shared\Application\Event\EventHandlerInterface;
-use App\Shared\Application\Query\QueryBusInterface;
-use App\Testing\Application\Query\FindTestingSession\FindTestingSessionQuery;
-use App\Testing\Domain\Entity\TestingSession\TestingSession;
+use App\Shared\Domain\Event\EventHandlerInterface;
+use App\Testing\Application\QueryInteractor;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
 use App\Testing\Infrastructure\Adapter\SkillsAdapter;
 
 readonly class TestingSessionCompletedEventHandler implements EventHandlerInterface
 {
     public function __construct(
-        private QueryBusInterface $queryBus,
-        private SkillsAdapter $skillsAdapter
+        private SkillsAdapter $skillsAdapter,
+        private QueryInteractor $queryInteractor
     ) {
     }
 
-    public function __invoke(TestingSessionCompletedEvent $event)
+    public function __invoke(TestingSessionCompletedEvent $event): string
     {
-        /** @var TestingSession $testingSession */
-        $testingSession = $this->queryBus->execute(new FindTestingSessionQuery($event->testingSessionId));
+        $testingSession = $this->queryInteractor
+            ->findTestingSession($event->testingSessionId)
+            ->testingSession;
 
         $this->skillsAdapter->confirmSpecialistSkill(
-            $testingSession->getTest()->getSkillId(),
-            $testingSession->getUserId(),
-            $testingSession->getTest()->getId(),
-            (int) $testingSession->getCorrectAnswersPercentage()
+            $testingSession->skillId,
+            $testingSession->userId,
+            $testingSession->testId,
+            $testingSession->correctAnswersPercentage
         );
+
+        return $testingSession->id;
     }
 }

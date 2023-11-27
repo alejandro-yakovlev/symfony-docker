@@ -6,20 +6,18 @@ use App\Shared\Application\Query\QueryHandlerInterface;
 use App\Testing\Application\Query\DTO\TestingSessionDTO;
 use App\Testing\Domain\Repository\TestingSessionRepositoryInterface;
 
-class FindTestingSessionQueryHandler implements QueryHandlerInterface
+readonly class FindTestingSessionQueryHandler implements QueryHandlerInterface
 {
-    public function __construct(private readonly TestingSessionRepositoryInterface $testingSessionRepository)
+    public function __construct(private TestingSessionRepositoryInterface $testingSessionRepository)
     {
     }
 
-    public function __invoke(FindTestingSessionQuery $query)
+    public function __invoke(FindTestingSessionQuery $query): FindTestingSessionQueryResult
     {
         $testingSession = $this->testingSessionRepository->findById($query->testingSessionId);
 
-        if ($testingSession) {
-            return TestingSessionDTO::fromEntity($testingSession);
-        }
-
-        return null;
+        return new FindTestingSessionQueryResult(
+            $testingSession ? TestingSessionDTO::fromEntity($testingSession) : null
+        );
     }
 }

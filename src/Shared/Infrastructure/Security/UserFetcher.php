@@ -6,8 +6,8 @@ namespace App\Shared\Infrastructure\Security;
 
 use App\Shared\Domain\Security\AuthUserInterface;
 use App\Shared\Domain\Security\UserFetcherInterface;
+use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\Security;
 use Webmozart\Assert\Assert;
 
 readonly class UserFetcher implements UserFetcherInterface

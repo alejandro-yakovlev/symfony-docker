@@ -27,6 +27,12 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Skills/Infrastructure/Database/ORM/Aggregate'
                 prefix: 'App\Skills\Domain\Aggregate'
                 alias: Skills
+            Testing:
+                is_bundle: false
+                type: xml
+                dir: '%kernel.project_dir%/src/Testing/Infrastructure/Database/ORM/Aggregate'
+                prefix: 'App\Testing\Domain\Aggregate'
+                alias: Testing
 
 #when@test:
 #    doctrine:

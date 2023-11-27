@@ -2,8 +2,8 @@
 
 namespace App\Skills\Domain\Service;
 
-use App\Skills\Domain\Aggregate\Specialist\Level;
-use App\Skills\Domain\Aggregate\Specialist\Proof;
+use App\Skills\Domain\Aggregate\SkillConfirmation\Level;
+use App\Skills\Domain\Aggregate\SkillConfirmation\Proof;
 use App\Skills\Domain\Factory\SkillConfirmationFactory;
 use App\Skills\Domain\Repository\SkillConfirmationRepositoryInterface;
 use App\Skills\Domain\Repository\SkillRepositoryInterface;
@@ -39,7 +39,7 @@ readonly class SkillConfirmationService
         }
 
         // Добавляем док-во подтверждения навыка с помощью теста
-        $skillConfirmation->addProof(new Proof($testId));
+        $skillConfirmation->addProof(new Proof($testId, $skillConfirmation));
         $this->skillConfirmationRepository->add($skillConfirmation);
     }
 
