@@ -16,8 +16,10 @@
             </options>
         </field>
         <field name="isPassedSuccessfully" type="boolean" nullable="true"/>
-        <one-to-many field="userAnswers" target-entity="App\Testing\Domain\Aggregate\TestingSession\UserAnswer"
-                     mapped-by="testingSession">
+        <one-to-many field="userAnswers"
+                     target-entity="App\Testing\Domain\Aggregate\TestingSession\UserAnswer"
+                     mapped-by="testingSession"
+        >
             <cascade>
                 <cascade-persist/>
             </cascade>

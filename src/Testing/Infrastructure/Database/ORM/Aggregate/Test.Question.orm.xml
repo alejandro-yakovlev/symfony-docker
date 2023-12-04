@@ -17,7 +17,9 @@
                enum-type="App\Testing\Domain\Aggregate\Test\QuestionType"
         />
 
-        <many-to-one field="test" target-entity="App\Testing\Domain\Aggregate\Test\Test"/>
+        <many-to-one field="test"
+                     target-entity="App\Testing\Domain\Aggregate\Test\Test"
+                     inversed-by="questions"/>
         <one-to-many field="answerOptions"
                      target-entity="App\Testing\Domain\Aggregate\Test\AnswerOption"
                      mapped-by="question">

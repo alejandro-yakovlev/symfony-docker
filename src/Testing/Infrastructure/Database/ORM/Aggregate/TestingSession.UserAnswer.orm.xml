@@ -7,7 +7,10 @@
         <id name="id" type="string" length="26">
             <generator strategy="NONE"/>
         </id>
-        <many-to-one field="testingSession" target-entity="App\Testing\Domain\Aggregate\TestingSession\TestingSession"/>
+        <many-to-one field="testingSession"
+                     target-entity="App\Testing\Domain\Aggregate\TestingSession\TestingSession"
+                     inversed-by="userAnswers"
+        />
         <many-to-one field="question" target-entity="App\Testing\Domain\Aggregate\Test\Question"/>
         <field name="answeredOptions" type="array">
             <options>

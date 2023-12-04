@@ -66,6 +66,9 @@ db_diff:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:diff --no-interaction
 diff: db_diff
 
+db_schema_validate:
+	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:schema:validate
+
 db_migration_down:
 	${DOCKER_COMPOSE} exec -u www-data php-fpm bin/console doctrine:migrations:execute "App\Shared\Infrastructure\Database\Migrations\Version********" --down --dry-run
 

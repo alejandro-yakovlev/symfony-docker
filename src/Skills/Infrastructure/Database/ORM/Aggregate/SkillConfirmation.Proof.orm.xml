@@ -8,7 +8,9 @@
             <generator strategy="NONE"/>
         </id>
         <field name="testId" type="string" length="26" nullable="false"/>
-        <many-to-one field="skillConfirmation" target-entity="App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation">
+        <many-to-one field="skillConfirmation"
+                     target-entity="App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation"
+        inversed-by="proofs">
             <join-column name="skill_confirmation_id" referenced-column-name="id"/>
         </many-to-one>
     </entity>
