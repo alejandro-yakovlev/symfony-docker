@@ -18,12 +18,17 @@ abstract class Aggregate
     /**
      * @return EventInterface[]
      */
-    public function popEvents(): array
+    public function pullEvents(): array
     {
         $events = $this->events;
         $this->events = [];
 
         return $events;
+    }
+
+    public function eventsEmpty(): bool
+    {
+        return empty($this->events);
     }
 
     protected function raise(EventInterface $event): void

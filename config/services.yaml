@@ -32,11 +32,6 @@ services:
         App\Shared\Domain\Specification\SpecificationInterface:
             public: true
 
-    App\Shared\Infrastructure\EventListener\Doctrine\DomainEventSubscriber:
-        tags: [ { name: 'doctrine.event_subscriber' } ]
-        arguments:
-            $containerBag: '@service_container'
-
     App\*\Domain\Factory\:
         namespace: App\
         public: true

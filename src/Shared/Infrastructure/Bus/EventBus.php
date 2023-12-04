@@ -18,8 +18,10 @@ class EventBus implements EventBusInterface
         $this->messageBus = $eventBus;
     }
 
-    public function execute(EventInterface $event): void
+    public function execute(EventInterface ...$events): void
     {
-        $this->messageBus->dispatch($event);
+        foreach ($events as $event) {
+            $this->messageBus->dispatch($event);
+        }
     }
 }
