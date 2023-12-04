@@ -24,7 +24,7 @@ readonly class SkillConfirmationService
 
     public function confirm(string $userId, string $skillId, string $testId, int $correctAnswersPercentage): void
     {
-        $specialist = $this->specialistRepository->findOneByUser($userId);
+        $specialist = $this->specialistRepository->findOneByPublicUserId($userId);
         $skill = $this->skillRepository->findOneById($skillId);
         $level = $this->makeLevelFromCorrectAnswersPercentage($correctAnswersPercentage);
 

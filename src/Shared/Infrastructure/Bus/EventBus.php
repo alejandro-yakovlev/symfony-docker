@@ -20,6 +20,6 @@ class EventBus implements EventBusInterface
 
     public function execute(EventInterface $event): void
     {
-        $this->handle($event);
+        $this->messageBus->dispatch($event);
     }
 }

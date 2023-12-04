@@ -6,7 +6,7 @@ use App\Skills\Domain\Aggregate\Specialist\Specialist;
 
 interface SpecialistRepositoryInterface
 {
-    public function findOneByUser(string $userId): ?Specialist;
+    public function findOneByPublicUserId(string $publicUserId): ?Specialist;
 
     public function add(Specialist $specialist): void;
 }

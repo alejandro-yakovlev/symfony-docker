@@ -25,7 +25,7 @@ services:
             tags:
                 - { name: messenger.message_handler, bus: query.bus }
 
-        App\Shared\Domain\Event\EventHandlerInterface:
+        App\Shared\Application\Event\EventHandlerInterface:
             tags:
                 - { name: messenger.message_handler, bus: event.bus }
 

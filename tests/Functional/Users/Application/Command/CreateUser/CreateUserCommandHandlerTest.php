@@ -5,7 +5,7 @@ namespace App\Tests\Functional\Users\Application\Command\CreateUser;
 use App\Shared\Application\Command\CommandBusInterface;
 use App\Tests\Tools\DITools;
 use App\Tests\Tools\FakerTools;
-use App\Users\Application\Admin\Command\CreateUser\CreateUserCommand;
+use App\Users\Application\UseCase\Command\CreateUser\CreateUserCommand;
 use App\Users\Domain\Repository\UserRepositoryInterface;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

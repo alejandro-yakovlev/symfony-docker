@@ -8,8 +8,8 @@ use App\Skills\Domain\Aggregate\Specialist\Specialist;
 
 class SpecialistFactory
 {
-    public function create(string $userId): Specialist
+    public function create(string $publicUserId): Specialist
     {
-        return new Specialist($userId);
+        return new Specialist($publicUserId);
     }
 }

@@ -3,8 +3,8 @@
 namespace App\Users\Infrastructure\Console;
 
 use App\Shared\Domain\Security\Role;
-use App\Users\Application\Admin\AdminCommandInteractor;
-use App\Users\Application\Admin\Command\CreateUser\CreateUserCommand;
+use App\Users\Application\UseCase\AdminUseCaseInteractor;
+use App\Users\Application\UseCase\Command\CreateUser\CreateUserCommand;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,7 +19,7 @@ use Webmozart\Assert\Assert;
 final class CreateUserConsoleCommand extends Command
 {
     public function __construct(
-        private readonly AdminCommandInteractor $adminCommandInteractor,
+        private readonly AdminUseCaseInteractor $adminCommandInteractor,
     ) {
         parent::__construct();
     }

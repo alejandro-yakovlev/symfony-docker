@@ -16,18 +16,18 @@ class Specialist
 {
     private string $id;
 
-    private string $userId;
+    private string $publicUserId;
 
     /**
      * @var Collection<Speciality>
      */
     private Collection $specialties;
 
-    public function __construct(string $userId)
+    public function __construct(string $publicUserId)
     {
         $this->id = Id::makeUlid();
         $this->specialties = new ArrayCollection();
-        $this->userId = $userId;
+        $this->publicUserId = $publicUserId;
     }
 
     public function addSpeciality(Speciality $speciality): void
@@ -42,9 +42,9 @@ class Specialist
         return $this->id;
     }
 
-    public function getUserId(): ?string
+    public function getPublicUserId(): ?string
     {
-        return $this->userId;
+        return $this->publicUserId;
     }
 
     public function getSpecialties(): Collection
@@ -52,8 +52,8 @@ class Specialist
         return $this->specialties;
     }
 
-    public function setUserId(?string $userId): void
+    public function setPublicUserId(?string $publicUserId): void
     {
-        $this->userId = $userId;
+        $this->publicUserId = $publicUserId;
     }
 }

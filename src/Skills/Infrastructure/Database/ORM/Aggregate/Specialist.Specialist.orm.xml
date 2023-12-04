@@ -7,7 +7,7 @@
         <id name="id" type="string" length="26">
             <generator strategy="NONE"/>
         </id>
-        <field name="userId" type="string" length="26" nullable="false"/>
+        <field name="publicUserId" type="string" length="26" nullable="false"/>
 
         <many-to-many field="specialties" target-entity="App\Skills\Domain\Aggregate\Speciality\Speciality">
             <join-table name="skills_specialist_speciality">

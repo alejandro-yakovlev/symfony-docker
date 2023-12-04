@@ -14,9 +14,9 @@ class SpecialistRepository extends ServiceEntityRepository implements Specialist
         parent::__construct($registry, Specialist::class);
     }
 
-    public function findOneByUser(string $userId): ?Specialist
+    public function findOneByPublicUserId(string $publicUserId): ?Specialist
     {
-        return $this->findOneBy(['userId' => $userId]);
+        return $this->findOneBy(['publicUserId' => $publicUserId]);
     }
 
     public function add(Specialist $specialist): void

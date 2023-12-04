@@ -2,7 +2,7 @@
 
 namespace App\Testing\Infrastructure\EventHandler;
 
-use App\Shared\Domain\Event\EventHandlerInterface;
+use App\Shared\Application\Event\EventHandlerInterface;
 use App\Testing\Application\QueryInteractor;
 use App\Testing\Domain\Event\TestingSessionCompletedEvent;
 use App\Testing\Infrastructure\Adapter\SkillsAdapter;
