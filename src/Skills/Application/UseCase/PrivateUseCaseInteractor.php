@@ -108,7 +108,6 @@ readonly class PrivateUseCaseInteractor
         $this->commandBus->execute($param);
     }
 
-
     public function findSkill(string $id): FindSkillQueryResult
     {
         $query = new FindSkillQuery($id);
