@@ -1,0 +1,17 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Skills\Domain\Aggregate\SkillConfirmation\Proof" table="skills_skill_confirmation_proof">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="testId" type="string" length="26" nullable="false"/>
+        <many-to-one field="skillConfirmation"
+                     target-entity="App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation"
+        inversed-by="proofs">
+            <join-column name="skill_confirmation_id" referenced-column-name="id"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

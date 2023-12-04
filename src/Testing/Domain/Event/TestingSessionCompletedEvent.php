@@ -9,9 +9,9 @@ use App\Shared\Domain\Event\EventInterface;
 /**
  * Сессия тестирования завершена.
  */
-class TestingSessionCompletedEvent implements EventInterface
+readonly class TestingSessionCompletedEvent implements EventInterface
 {
-    public function __construct(public readonly string $testingSessionId)
+    public function __construct(public string $testingSessionId)
     {
     }
 }

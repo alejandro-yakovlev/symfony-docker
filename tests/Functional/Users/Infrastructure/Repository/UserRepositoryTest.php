@@ -45,7 +45,7 @@ class UserRepositoryTest extends WebTestCase
         $this->repository->add($user);
 
         // assert
-        $existingUser = $this->repository->findByUlid($user->getId());
+        $existingUser = $this->repository->findById($user->getId());
         $this->assertEquals($user->getId(), $existingUser->getId());
     }
 
@@ -57,7 +57,7 @@ class UserRepositoryTest extends WebTestCase
         $user = $executor->getReferenceRepository()->getReference(UserFixture::REFERENCE);
 
         // act
-        $existingUser = $this->repository->findByUlid($user->getId());
+        $existingUser = $this->repository->findById($user->getId());
 
         // assert
         $this->assertEquals($user->getId(), $existingUser->getId());

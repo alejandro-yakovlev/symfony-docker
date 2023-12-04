@@ -6,8 +6,10 @@ namespace App\Users\Infrastructure\Controller;
 
 use App\Shared\Domain\Security\UserFetcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpKernel\Attribute\AsController;
 use Symfony\Component\Routing\Annotation\Route;
 
+#[AsController]
 #[Route('/api/users/me', methods: ['GET'])]
 class GetMeAction
 {
@@ -17,7 +19,7 @@ class GetMeAction
 
     public function __invoke(): JsonResponse
     {
-        $user = $this->userFetcher->getAuthUser();
+        $user = $this->userFetcher->requiredUser();
 
         return new JsonResponse([
             'ulid' => $user->getId(),

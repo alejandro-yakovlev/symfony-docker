@@ -1,0 +1,30 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation" table="skills_skill_confirmation">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+        <many-to-one field="specialist" target-entity="App\Skills\Domain\Aggregate\Specialist\Specialist">
+            <join-column name="specialist_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <many-to-one field="skill" target-entity="App\Skills\Domain\Aggregate\Skill\Skill">
+            <join-column name="skill_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <one-to-many field="proofs" target-entity="App\Skills\Domain\Aggregate\SkillConfirmation\Proof"
+                     mapped-by="skillConfirmation">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+
+        <field name="level"
+               enum-type="App\Skills\Domain\Aggregate\SkillConfirmation\Level"
+               length="50">
+        </field>
+    </entity>
+</doctrine-mapping>

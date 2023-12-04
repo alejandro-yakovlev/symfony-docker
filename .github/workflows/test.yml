@@ -2,7 +2,7 @@ name: 'Test'
 
 on:
   push:
-#  pull_request:
+  pull_request:
 
 jobs:
   analyse:
@@ -16,6 +16,7 @@ jobs:
           POSTGRES_DB: symfony_db
           POSTGRES_USER: symfony_user
           POSTGRES_PASSWORD: symfony_pass
+
     env:
       POSTGRES_DB: symfony
       POSTGRES_USER: symfony
@@ -25,10 +26,19 @@ jobs:
       DB_USER: symfony_user
       DB_PASSWORD: symfony_pass
       DB_PORT: 5432
+
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
-        run: composer install
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: "8.2"
 
       - name: Run doctrine schema create
         run: php bin/console doctrine:schema:create
@@ -38,8 +48,8 @@ jobs:
 
       - name: Run deptrac
         run: |
-          vendor/bin/deptrac analyze deptrac-layers.yaml
-          vendor/bin/deptrac analyze deptrac-modules.yaml
+          vendor/bin/deptrac analyze --config-file=deptrac-layers.yaml
+          vendor/bin/deptrac analyze --config-file=deptrac-modules.yaml
 
       - name: Run phpstan
         run: vendor/bin/phpstan analyse -c phpstan.neon
@@ -73,7 +83,13 @@ jobs:
       DB_PORT: 5432
     steps:
       - uses: actions/checkout@v2
-      - name: Build the stack
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Install dependencies
         run: composer install
 
       - name: Run doctrine schema create

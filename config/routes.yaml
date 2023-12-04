@@ -6,11 +6,13 @@ kernel:
     resource: ../src/Shared/Infrastructure/Kernel.php
     type: annotation
 
-gesdinet_jwt_refresh_token:
-    path: /api/auth/token/refresh
+api_refresh_token:
+    path: /api/auth/v1/refresh-token
+    methods: POST
 
 api_login_check:
-    path: /api/auth/token/login
+    path: /api/auth/v1/token
+    methods: POST
 
 users:
     resource: ../src/Users/Infrastructure/Controller/

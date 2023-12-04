@@ -2,7 +2,7 @@
 
 namespace App\Skills\Infrastructure\Repository;
 
-use App\Skills\Domain\Entity\Specialist\SkillConfirmation;
+use App\Skills\Domain\Aggregate\SkillConfirmation\SkillConfirmation;
 use App\Skills\Domain\Repository\SkillConfirmationRepositoryInterface;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -14,14 +14,14 @@ class SkillConfirmationRepository extends ServiceEntityRepository implements Ski
         parent::__construct($registry, SkillConfirmation::class);
     }
 
-    public function findBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation
+    public function findOneBySpecialist(string $skillId, string $specialistId): ?SkillConfirmation
     {
-        return $this->findOneBy(['skillId' => $skillId, 'specialistId' => $specialistId]);
+        return $this->findOneBy(['skill' => $skillId, 'specialist' => $specialistId]);
     }
 
-    public function add(?SkillConfirmation $skillConfirmation): void
+    public function add(SkillConfirmation $skillConfirmation): void
     {
-        $this->getEntityManager()->persist($skillConfirmation);
-        $this->getEntityManager()->flush();
+        $this->_em->persist($skillConfirmation);
+        $this->_em->flush();
     }
 }

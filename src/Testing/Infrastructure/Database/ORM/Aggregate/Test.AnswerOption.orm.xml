@@ -1,0 +1,20 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Testing\Domain\Aggregate\Test\AnswerOption" table="testing_answer_option">
+        <id name="id" type="string" length="26">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="description" type="string"/>
+        <field name="correct" type="boolean"/>
+
+        <many-to-one field="question"
+                     target-entity="App\Testing\Domain\Aggregate\Test\Question"
+                     inversed-by="answerOptions"
+        />
+    </entity>
+
+</doctrine-mapping>

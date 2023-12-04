@@ -2,13 +2,16 @@
 
 namespace App\Testing\Application\Query\DTO;
 
-use App\Testing\Domain\Entity\TestingSession\TestingSession;
+use App\Testing\Domain\Aggregate\TestingSession\TestingSession;
 
-class TestingSessionDTO
+readonly class TestingSessionDTO
 {
     public function __construct(
-        public readonly string $id,
-        public readonly ?string $skillId,
+        public string $id,
+        public string $userId,
+        public string $testId,
+        public int $correctAnswersPercentage,
+        public ?string $skillId
     ) {
     }
 
@@ -16,7 +19,10 @@ class TestingSessionDTO
     {
         return new self(
             $testingSession->getId(),
-            $testingSession->getTest()->getSkillId(),
+            $testingSession->getUserId(),
+            $testingSession->getTest()->getId(),
+            $testingSession->getCorrectAnswersPercentage(),
+            $testingSession->getTest()->getSkillId()
         );
     }
 }

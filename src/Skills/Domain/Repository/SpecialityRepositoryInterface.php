@@ -2,9 +2,14 @@
 
 namespace App\Skills\Domain\Repository;
 
-use App\Skills\Domain\Entity\Speciality\Speciality;
+use App\Shared\Domain\Repository\PaginationResult;
+use App\Skills\Domain\Aggregate\Speciality\Speciality;
 
 interface SpecialityRepositoryInterface
 {
-    public function findByName(string $name): ?Speciality;
+    public function add(Speciality $entity): void;
+
+    public function findOne(SpecialityFilter $filter): ?Speciality;
+
+    public function findPagedItems(SpecialityFilter $filter): PaginationResult;
 }

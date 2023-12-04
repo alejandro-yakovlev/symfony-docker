@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace App\Users\Domain\Entity;
 
+use App\Shared\Domain\Aggregate\Id;
 use App\Shared\Domain\Security\AuthUserInterface;
-use App\Shared\Domain\Service\UlidService;
+use App\Shared\Domain\Security\Role;
 use App\Users\Domain\Service\UserPasswordHasherInterface;
+use Webmozart\Assert\Assert;
 
 class User implements AuthUserInterface
 {
@@ -14,10 +16,21 @@ class User implements AuthUserInterface
     private string $email;
     private ?string $password = null;
 
-    public function __construct(string $email)
+    /**
+     * @var array<string>
+     */
+    private array $roles = [];
+
+    public function __construct(string $email, string $role)
     {
-        $this->id = UlidService::generate();
+        $this->id = Id::makeUlid();
         $this->email = $email;
+
+        $this->addRole($role);
+        // Пользователь всегда должен имеет роль ROLE_USER
+        if (Role::ROLE_USER !== $role) {
+            $this->addRole(Role::ROLE_USER);
+        }
     }
 
     public function getId(): string
@@ -33,13 +46,6 @@ class User implements AuthUserInterface
     public function getPassword(): ?string
     {
         return $this->password;
-    }
-
-    public function getRoles(): array
-    {
-        return [
-            'ROLE_USER',
-        ];
     }
 
     public function eraseCredentials(): void
@@ -61,5 +67,18 @@ class User implements AuthUserInterface
         }
 
         $this->password = $passwordHasher->hash($this, $password);
+    }
+
+    public function getRoles(): array
+    {
+        return $this->roles;
+    }
+
+    public function addRole(string $role): void
+    {
+        Assert::inArray($role, Role::ROLES, 'Неверная роль');
+        if (!in_array($role, $this->roles)) {
+            $this->roles[] = $role;
+        }
     }
 }

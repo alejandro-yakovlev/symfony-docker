@@ -2,11 +2,11 @@
 
 namespace App\Testing\Application\Query\FindTestingSession;
 
-use App\Shared\Application\Query\QueryInterface;
+use App\Shared\Application\Query\Query;
 
-class FindTestingSessionQuery implements QueryInterface
+readonly class FindTestingSessionQuery extends Query
 {
-    public function __construct(public readonly string $testingSessionId)
+    public function __construct(public string $testingSessionId)
     {
     }
 }

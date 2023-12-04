@@ -2,17 +2,21 @@
 
 namespace App\Skills\Domain\Factory;
 
-use App\Skills\Domain\Entity\Skill\SkillGroup;
-use App\Skills\Domain\Specification\SkillGroupNameSpecification;
+use App\Skills\Domain\Aggregate\Skill\SkillGroup;
+use App\Skills\Domain\Aggregate\Skill\Specification\SkillGroupNameSpecification;
 
-class SkillGroupFactory
+readonly class SkillGroupFactory
 {
-    public function __construct(private readonly SkillGroupNameSpecification $skillGroupNameSpecification)
+    public function __construct(private SkillGroupNameSpecification $skillGroupNameSpecification)
     {
     }
 
-    public function create(string $name): SkillGroup
+    public function create(string $name, string $ownerId): SkillGroup
     {
-        return new SkillGroup($name, $this->skillGroupNameSpecification);
+        return new SkillGroup(
+            $name,
+            $ownerId,
+            $this->skillGroupNameSpecification
+        );
     }
 }

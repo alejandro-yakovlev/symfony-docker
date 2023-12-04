@@ -3,18 +3,20 @@
 namespace App\Tests\Functional\Testing\Domain\Entity\TestingSession;
 
 use App\Shared\Domain\Service\UlidService;
-use App\Shared\Domain\ValueObject\GlobalUserId;
-use App\Testing\Domain\Entity\Test\AnswerOption;
-use App\Testing\Domain\Entity\Test\DifficultyLevel;
-use App\Testing\Domain\Entity\Test\Question;
-use App\Testing\Domain\Entity\Test\QuestionType;
-use App\Testing\Domain\Entity\Test\Test;
-use App\Testing\Domain\Entity\TestingSession\TestingSession;
-use App\Testing\Domain\Entity\TestingSession\UserAnswer;
+use App\Testing\Domain\Aggregate\Test\AnswerOption;
+use App\Testing\Domain\Aggregate\Test\DifficultyLevel;
+use App\Testing\Domain\Aggregate\Test\Question;
+use App\Testing\Domain\Aggregate\Test\QuestionType;
+use App\Testing\Domain\Aggregate\TestingSession\TestingSession;
+use App\Testing\Domain\Aggregate\TestingSession\UserAnswer;
+use App\Testing\Domain\Factory\TestFactory;
+use App\Tests\Tools\DITools;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class TestingSessionCompletionTest extends WebTestCase
 {
+    use DITools;
+
     /**
      * Процент правильно отвеченных вопросов является верным после завершения сессии тестирования.
      *
@@ -27,17 +29,20 @@ class TestingSessionCompletionTest extends WebTestCase
         $creatorId = UlidService::generate();
         $testedUserId = UlidService::generate();
 
-        $creator = new GlobalUserId($creatorId);
-        $test = new Test(
-            $creator, $testData['name'], $testData['description'], DifficultyLevel::EASY, UlidService::generate()
+        $testFactory = $this->getService(TestFactory::class);
+        $test = $testFactory->create(
+            $creatorId,
+            $testData['name'],
+            $testData['description'],
+            DifficultyLevel::EASY,
+            100,
+            UlidService::generate()
         );
 
-        $user = new GlobalUserId($testedUserId);
-        $testingSession = new TestingSession($test, $user->getId());
+        $questionUserAnsweredOptions = [];
 
         foreach ($testData['questions'] as $questionData) {
-            $question = new Question($test, $questionData['description'], 1, $questionData['type']);
-            $userAnswer = new UserAnswer($testingSession, $question);
+            $question = new Question($test, $questionData['name'], $questionData['description'], $questionData['type']);
 
             foreach ($questionData['answerOptions'] as $answerOptionData) {
                 $answerOption = new AnswerOption(
@@ -48,15 +53,23 @@ class TestingSessionCompletionTest extends WebTestCase
                 $question->addAnswerOption($answerOption);
 
                 if ($answerOptionData['isSelectedByUser']) {
-                    $userAnswer->addAnswerOption($answerOption);
+                    $questionUserAnsweredOptions[$question->getId()][] = $answerOption;
                 }
             }
 
-            $testingSession->addAnswer($userAnswer);
             $test->addQuestion($question);
         }
 
-        $testingSession->complete();
+        $testingSession = new TestingSession($test, $testedUserId);
+        foreach ($testingSession->getTest()->getQuestions() as $question) {
+            $userAnswer = new UserAnswer($testingSession, $question);
+            foreach ($questionUserAnsweredOptions[$question->getId()] as $answerOption) {
+                $userAnswer->addAnswerOption($answerOption);
+            }
+            $testingSession->addAnswer($userAnswer);
+        }
+
+        //        $testingSession->complete();
 
         $this->assertEquals($expectedCorrectAnswerPercentage, $testingSession->getCorrectAnswersPercentage());
     }
@@ -70,6 +83,7 @@ class TestingSessionCompletionTest extends WebTestCase
                     'description' => '',
                     'questions' => [
                         [
+                            'name' => '',
                             'description' => '',
                             'type' => QuestionType::MULTIPLE_CHOICE,
                             'answerOptions' => [
@@ -86,6 +100,7 @@ class TestingSessionCompletionTest extends WebTestCase
                             ],
                         ],
                         [
+                            'name' => '',
                             'description' => '',
                             'type' => QuestionType::MULTIPLE_CHOICE,
                             'answerOptions' => [
@@ -111,6 +126,7 @@ class TestingSessionCompletionTest extends WebTestCase
                     'description' => '',
                     'questions' => [
                         [
+                            'name' => '',
                             'description' => '',
                             'type' => QuestionType::MULTIPLE_CHOICE,
                             'answerOptions' => [
@@ -127,6 +143,7 @@ class TestingSessionCompletionTest extends WebTestCase
                             ],
                         ],
                         [
+                            'name' => '',
                             'description' => '',
                             'type' => QuestionType::MULTIPLE_CHOICE,
                             'answerOptions' => [
